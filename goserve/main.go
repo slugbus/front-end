@@ -1,10 +1,10 @@
 package main
 
 import (
+	"busplusplus/internal/util"
 	"context"
 	"encoding/json"
 	"flag"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -14,48 +14,31 @@ import (
 	"github.com/gorilla/mux"
 )
 
-type BusData struct {
-	ID   string  `json:"id"`
-	Lon  float64 `json:"lon"`
-	Lat  float64 `json:"lat"`
-	Type string  `json:"type"`
-}
-
-type SlugResponse []BusData
-
 func testGet(w http.ResponseWriter, r *http.Request) {
-	response, err := http.Get("http://bts.ucsc.edu:8081/location/get")
 
-	if err != nil {
-		log.Printf("could not make request: %v\n", err)
-		return
-	}
-
-	defer response.Body.Close()
-
-	rawJsonData, err := ioutil.ReadAll(response.Body)
+	// Get the data
+	buses, err := util.GetBus()
 
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		log.Printf("could not read data: %v\n", err)
+		log.Printf("could not write data: %v\n", err)
 		return
 	}
 
-	jsonData := SlugResponse{}
-
-	err = json.Unmarshal(rawJsonData, &jsonData)
-
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		log.Printf("could not decode data: %v\n", err)
-		return
-	}
-
+	// Write the heades
 	w.WriteHeader(http.StatusOK)
-
 	w.Header().Set("Content-Type", "application/json")
 
-	_, err = w.Write(rawJsonData)
+	// Decode the data.
+	rawBytes, err := json.Marshal(buses)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		log.Printf("could not marshal data: %v\n", err)
+		return
+	}
+
+	// Write the data to the client.
+	_, err = w.Write(rawBytes)
 
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)

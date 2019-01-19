@@ -1,6 +1,8 @@
 package geo
 
-// Dir gives direction relative 
+import "math"
+
+// Dir gives direction relative
 func Dir(lat1, long1, lat2, long2 float64) float64 {
 	top := math.Log(math.Tan((lat2 / 2) + (math.Pi / 4)))
 	bottom := math.Log(math.Tan((lat1 / 2) + (math.Pi / 4)))
@@ -11,7 +13,8 @@ func Dir(lat1, long1, lat2, long2 float64) float64 {
 
 	return math.Round((180 / math.Pi) * teta)
 }
-// Dist returns distance traveled 
+
+// Dist returns distance traveled in miles
 func Dist(lat1, long1, lat2, long2 float64) float64 {
 	lat1 = lat1 * math.Pi / 180
 	long1 = long1 * math.Pi / 180

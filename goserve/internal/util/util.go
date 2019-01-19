@@ -4,22 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"math"
 	"net/http"
 )
-
-// type Direction int
-
-// const (
-// 	North Direction = iota
-// 	NorthEast
-// 	NorthWest
-// 	South
-// 	SouthEast
-// 	SouthWest
-// 	East
-// 	West
-// )
 
 // BusData is a structure that
 // contains the json response
@@ -31,12 +17,14 @@ type BusData struct {
 	Type string  `json:"type"`
 }
 
+// BusDataPlusPlus is a structure that
+// contains data from Bus but with more
+// info
 type BusDataPlusPlus struct {
 	BusData
 	Speed float64 `json:"speed"`
 	Angle float64 `json:"angle"`
 }
-
 
 // SlugResponse is a collection
 // of BusData

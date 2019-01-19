@@ -104,7 +104,7 @@ func init() {
 		return
 	}
 
-	CurrentBusState = mergeUpdate(arrOfBuses[0], arrOfBuses[1], 250)
+	CurrentBusState = mergeUpdate(arrOfBuses[0], arrOfBuses[1], 60000)
 }
 
 // GetBus calls the ucsc server
@@ -112,7 +112,8 @@ func init() {
 func GetBus() (*SlugResponse, error) {
 
 	// Make a get request to the ucsc serveer
-	response, err := http.Get("http://bts.ucsc.edu:8081/location/get")
+	// response, err := http.Get("http://bts.ucsc.edu:8081/location/get")
+	response, err := http.Get("http://localhost:6969")
 
 	// Check for errs
 	if err != nil {

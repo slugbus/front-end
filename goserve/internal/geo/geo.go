@@ -1,6 +1,18 @@
 package geo
 
-import "math"
+import (
+	"math"
+)
+
+// Speed returns the speed of a bus in mph
+// where d is in miles and t is in milli
+func Speed(d float64, t float64) float64 {
+
+	seconds := t / 1000
+	hours := seconds / 60 / 60
+
+	return d / hours
+}
 
 // Dir gives direction relative
 func Dir(lat1, long1, lat2, long2 float64) float64 {

@@ -1,15 +1,18 @@
 package bus
 
 import (
+	"busplusplus/internal/geo"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
+	"time"
 )
 
 // CurrentBusState is the current
 // the state of the buses.
-var CurrentBusState DataPlusPlus
+var CurrentBusState SlugResponsePlusPlus
 
 // Data is a structure that
 // contains the json response
@@ -37,6 +40,72 @@ type SlugResponsePlusPlus []DataPlusPlus
 // SlugResponse is a collection
 // of BusData
 type SlugResponse []Data
+
+func mergeUpdate(p, q *SlugResponse, t float64) SlugResponsePlusPlus {
+	// Make of map of strings
+	// to buses
+	mb := map[string]Data{}
+
+	// Loop through first
+	// ping
+	for _, bus := range *p {
+		// Map the bus ID to the
+		// bus datastructure
+		mb[bus.ID] = bus
+	}
+
+	// Prepare a result
+	result := SlugResponsePlusPlus{}
+
+	// Loop through the second ping
+	for _, pingTwoBus := range *q {
+		// Make a bus with angles and speed
+		d := DataPlusPlus{}
+		// Add the buses' data to the bus++?
+		d.Data = pingTwoBus
+
+		// Check if the current bus exists in ping one
+		if pingOneBus, contains := mb[d.ID]; contains {
+			// If it does, calculate its distance, speed , and angle
+			distance := geo.Dist(pingOneBus.Lat, pingOneBus.Lon, pingTwoBus.Lat, pingTwoBus.Lon)
+			d.Speed = geo.Speed(distance, t)
+			d.Angle = geo.Dir(pingOneBus.Lat, pingOneBus.Lon, pingTwoBus.Lat, pingTwoBus.Lon)
+		}
+
+		// push the bus to the result
+		result = append(result, d)
+	}
+
+	return result
+}
+
+func init() {
+
+	arrOfBuses := []*SlugResponse{}
+
+	count := 0
+	for range time.Tick(250 * time.Millisecond) {
+		if count == 2 {
+			break
+		}
+
+		bus, err := GetBus()
+		if err != nil {
+			log.Printf("could not get bus info: %v\n", err)
+			return
+		}
+
+		arrOfBuses = append(arrOfBuses, bus)
+		count++
+	}
+
+	if len(arrOfBuses) != 2 {
+		log.Printf("wanted 2 data points got %d data points", len(arrOfBuses))
+		return
+	}
+
+	CurrentBusState = mergeUpdate(arrOfBuses[0], arrOfBuses[1], 250)
+}
 
 // GetBus calls the ucsc server
 // and returns a SlugResponse

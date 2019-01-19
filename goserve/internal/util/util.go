@@ -7,6 +7,19 @@ import (
 	"net/http"
 )
 
+// type Direction int
+
+// const (
+// 	North Direction = iota
+// 	NorthEast
+// 	NorthWest
+// 	South
+// 	SouthEast
+// 	SouthWest
+// 	East
+// 	West
+// )
+
 // BusData is a structure that
 // contains the json response
 // from the ucsc taps server.
@@ -17,8 +30,14 @@ type BusData struct {
 	Type string  `json:"type"`
 }
 
+type BusDataPlusPlus struct {
+	BusData
+	Speed       float64 `json:"speed"`
+	ISClockwise bool    `json:"isclockwise"`
+}
+
 // SlugResponse is a collection
-// of BusDatas
+// of BusData
 type SlugResponse []BusData
 
 // GetBus calls the ucsc server

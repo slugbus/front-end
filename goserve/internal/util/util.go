@@ -48,7 +48,7 @@ func getDir(lat1, long1, lat2, long2 float64) float64 {
 	return math.Round((180 / math.Pi) * teta)
 }
 
-func getDistlat1, long1, lat2, long2 float64) float64 {
+func getDist(lat1, long1, lat2, long2 float64) float64 {
 	lat1 = lat1 * math.Pi / 180
 	long1 = long1 * math.Pi / 180
 
@@ -68,6 +68,7 @@ func getDistlat1, long1, lat2, long2 float64) float64 {
 
 	return miles
 }
+
 // SlugResponse is a collection
 // of BusData
 type SlugResponse []BusData

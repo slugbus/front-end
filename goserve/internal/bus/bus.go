@@ -41,6 +41,40 @@ type SlugResponsePlusPlus []DataPlusPlus
 // of BusData
 type SlugResponse []Data
 
+func mergeWithState(p *SlugResponse, t float64) SlugResponsePlusPlus {
+
+	pingHash := map[string]Data{}
+	stateHash := map[string]DataPlusPlus{}
+
+	for _, bus := range *p {
+		pingHash[bus.ID] = bus
+	}
+	for _, bus := range CurrentBusState {
+		stateHash[bus.ID] = bus
+	}
+
+	ns := SlugResponsePlusPlus{}
+
+	for key, pingBus := range pingHash {
+
+		dataPoint := DataPlusPlus{
+			Data: pingBus,
+		}
+
+		stateBus, isInState := stateHash[key]
+
+		if isInState {
+			distance := geo.Dist(stateBus.Lat, stateBus.Lon, pingBus.Lat, pingBus.Lon)
+			dataPoint.Speed = geo.Speed(distance, t)
+			dataPoint.Angle = geo.Dir(stateBus.Lat, stateBus.Lon, pingBus.Lat, pingBus.Lon)
+		}
+
+		ns = append(ns, dataPoint)
+	}
+
+	return ns
+}
+
 func mergeUpdate(p, q *SlugResponse, t float64) SlugResponsePlusPlus {
 	// Make of map of strings
 	// to buses
@@ -105,6 +139,17 @@ func init() {
 	}
 
 	CurrentBusState = mergeUpdate(arrOfBuses[0], arrOfBuses[1], 60000)
+
+	go func() {
+		for range time.Tick(time.Minute) {
+			newPing, err := GetBus()
+			if err != nil {
+				log.Println("could not get bus data: ", err)
+				continue
+			}
+			CurrentBusState = mergeWithState(newPing, 60000)
+		}
+	}()
 }
 
 // GetBus calls the ucsc server

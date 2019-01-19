@@ -1,7 +1,7 @@
 package main
 
 import (
-	"busplusplus/internal/util"
+	"busplusplus/internal/bus"
 	"context"
 	"encoding/json"
 	"flag"
@@ -17,7 +17,7 @@ import (
 func testGet(w http.ResponseWriter, r *http.Request) {
 
 	// Get the data
-	buses, err := util.GetBus()
+	buses, err := bus.GetBus()
 
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)

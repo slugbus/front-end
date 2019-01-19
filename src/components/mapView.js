@@ -1,11 +1,24 @@
 import React from 'react';
-import GoogleMapReact from 'google-map-react';
+import { GoogleApiWrapper, Map, InfoWindow, Marker } from 'google-maps-react'
 import { innerdata } from '../busData/inner'
 import { outerdata } from '../busData/outer'
-import Popup from 'reactjs-popup'
+import Modal from 'react-modal';
+const customStyles = {
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)'
+    }
+};
+
+const BlueIcon = { url: require('./assets/mapIcons/Blue_Stop.png'), scaledSize: { width: 25, height: 32 } };
+const RedIcon = { url: require('./assets/mapIcons/Red_Stop.png'),scaledSize: { width: 25, height: 32 } }
+export class MapView extends React.Component {
 
 
-class MapView extends React.Component {
 
     constructor(props) {
         super(props);
@@ -16,20 +29,45 @@ class MapView extends React.Component {
 
             },
             zoom: 15,
-            innerstops: [innerdata],
-            outerstops: [outerdata],
-            isHovering: false
+            toolTipActive: false,
+            showingInfoWindow: false,
+            activeMarker: {},
+            markerObjects: [],
+            selectedPlace: {},
+            infoWindow: null
+
 
         }
     }
 
 
-    handleHover() {
-        console.log("HOVERING");
+
+    updateLocation(name) {
         this.setState({
-            isHovering: !this.state.isHovering
+            currentLocation: name
         })
     }
+
+
+
+    onMarkerClick(props, marker, e) {
+
+        console.log("DGSG")
+        this.setState({
+            selectedPlace: props,
+            activeMarker: marker,
+            stopDetailsVisible: true
+        });
+    }
+
+    onMapClicked() {
+        console.log("MAP CLICKED");
+        this.setState({
+
+            showingInfoWindow: false
+        })
+    }
+
 
     render() {
         return (
@@ -38,67 +76,85 @@ class MapView extends React.Component {
                     <h1>Bus++</h1>
                 </div>
 
-                <GoogleMapReact
-
-                    bootstrapURLKeys={{ key: 'AIzaSyCVBkdLAA2jhdd9iCuPyPL4dD9xpRD32AQ' }}
-                    defaultCenter={this.state.center}
-                    defaultZoom={this.state.zoom}
+                <Map
+                    google={this.props.google}
+                    zoom={15}
+                    onClick={this.onMapClicked.bind(this)}
+                    initialCenter={{
+                        lat: 36.990790,
+                        lng: -122.058555
+                    }}
                 >
-                    {innerdata.map((x) =>
-                        <div
-                            onMouseEnter={this.handleHover.bind(this)}
-                            onMouseLeave={this.handleHover.bind(this)}
-                            lat={x.lat}
-                            lng={x.lng}
-                            style={{
-                                color: 'white',
-                                background: 'red',
-                                padding: '7px 7px',
-                                display: 'inline-flex',
-                                textAlign: 'center',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                borderRadius: '100%',
+                    {innerdata.map((x, index) =>
 
-                            }}>
+                        <Marker
+                            options={{ icon: BlueIcon }}
+                            title={`${x.name}
+                                     ${x.lat}`}
+                            key={x.uid}
+                            position={{ lat: x.lat, lng: x.lng }}
+                            onClick={this.onMarkerClick.bind(this)}
+                        >
+                        </Marker>
 
-                        </div>
-                    )
-
-                    }
-
-                    {outerdata.map((x) =>
-
-                        <div
-                            onMouseEnter={this.handleHover.bind(this)}
-                            onMouseLeave={this.handleHover.bind(this)}
-                            lat={x.lat}
-                            lng={x.lng}
-                            style={{
-                                color: 'white',
-                                background: 'red',
-                                padding: '7px 7px',
-                                display: 'inline-flex',
-                                textAlign: 'center',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                borderRadius: '100%',
-
-                            }}>
-
-                        </div>
 
                     )
-
                     }
-                </GoogleMapReact>
+                    {outerdata.map((x, index) =>
+                        <Marker
+                            options={{ icon: RedIcon }}
+                            onClick={this.onMarkerClick.bind(this)}
+                            key={x.uid}
+                            title={`
+                            ${x.name}
+                            ${x.lat}`}
+                            position={{ lat: x.lat, lng: x.lng }}
+                        >
 
-             
-            </div>
+                            {x.name === this.state.activeMarker.title && (
+                                <InfoWindow>
+                                    <div>
+                                        <h1>info widnow shit</h1>
+                                    </div>
+
+                                </InfoWindow>
+
+                            )}
+
+                        </Marker>
+
+                    )
+                    }
+
+                </Map>
+
+                <Modal
+                    isOpen={this.state.stopDetailsVisible}
+                    style={customStyles}
+                >
+
+                    <div>
+                        <button className="btn btn-danger"> X</button>
+                        <div>
+                            <p></p>
+                        </div>
+
+
+                    </div>
+
+
+
+
+                </Modal>
+
+
+            </div >
         )
     }
 }
 
-export default MapView;
+export default GoogleApiWrapper({
+    apiKey: ("AIzaSyCVBkdLAA2jhdd9iCuPyPL4dD9xpRD32AQ")
+})(MapView);
 
 

@@ -1,5 +1,6 @@
 import React from 'react';
-import MapView from './mapView'
+import MapView from './mapView';
+import Title from './title';
 
 
 
@@ -12,10 +13,9 @@ class Container extends React.Component {
         return (
             <div>
                 <div>
-                    <h1>Bus++</h1>
-                </div>
-                <div>
-                    <MapView></MapView>
+                     
+                    <MapView></MapView>   
+                    
                 </div>
 
             </div>

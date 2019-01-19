@@ -26,6 +26,10 @@ type BusDataPlusPlus struct {
 	Angle float64 `json:"angle"`
 }
 
+// SlugResponsePlusPlus is a collection of
+// of BusDataPlusPlus
+type SlugResponsePlusPlus []BusDataPlusPlus
+
 // SlugResponse is a collection
 // of BusData
 type SlugResponse []BusData

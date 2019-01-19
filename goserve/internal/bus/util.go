@@ -1,4 +1,4 @@
-package util
+package bus
 
 import (
 	"encoding/json"

@@ -2,7 +2,9 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"flag"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -12,16 +14,67 @@ import (
 	"github.com/gorilla/mux"
 )
 
+type BusData struct {
+	ID   string  `json:"id"`
+	Lon  float64 `json:"lon"`
+	Lat  float64 `json:"lat"`
+	Type string  `json:"type"`
+}
+
+type SlugResponse []BusData
+
+func testGet(w http.ResponseWriter, r *http.Request) {
+	response, err := http.Get("http://bts.ucsc.edu:8081/location/get")
+
+	if err != nil {
+		log.Printf("could not make request: %v\n", err)
+		return
+	}
+
+	defer response.Body.Close()
+
+	rawJsonData, err := ioutil.ReadAll(response.Body)
+
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		log.Printf("could not read data: %v\n", err)
+		return
+	}
+
+	jsonData := SlugResponse{}
+
+	err = json.Unmarshal(rawJsonData, &jsonData)
+
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		log.Printf("could not decode data: %v\n", err)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+
+	w.Header().Set("Content-Type", "application/json")
+
+	_, err = w.Write(rawJsonData)
+
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		log.Printf("could not write data: %v\n", err)
+		return
+	}
+
+}
+
 func main() {
 	var wait time.Duration
 	flag.DurationVar(&wait, "graceful-timeout", time.Second*15, "the duration for which the server gracefully wait for existing connections to finish - e.g. 15s or 1m")
 	flag.Parse()
 
 	r := mux.NewRouter()
-	// Add your routes as needed
+	r.HandleFunc("/api/test_get", testGet).Methods("GET")
 
 	srv := &http.Server{
-		Addr: "0.0.0.0:8080",
+		Addr: ":8080",
 		// Good practice to set timeouts to avoid Slowloris attacks.
 		WriteTimeout: time.Second * 15,
 		ReadTimeout:  time.Second * 15,

@@ -13,9 +13,9 @@ class Container extends React.Component {
         return (
             <div>
                 <div>
-                     
-                    <MapView></MapView>   
-                    
+
+                    <MapView></MapView>
+
                 </div>
 
             </div>

@@ -142,7 +142,7 @@ func init() {
 	log.Printf("Started Initial state: %+v\n", CurrentBusState)
 
 	go func() {
-		for range time.Tick(time.Minute) {
+		for range time.Tick(10 * time.Millisecond) {
 			newPing, err := GetBus()
 			if err != nil {
 				log.Println("could not get bus data: ", err)

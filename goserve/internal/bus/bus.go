@@ -139,6 +139,7 @@ func init() {
 	}
 
 	CurrentBusState = mergeUpdate(arrOfBuses[0], arrOfBuses[1], 60000)
+	log.Printf("Started Initial state: %+v\n", CurrentBusState)
 
 	go func() {
 		for range time.Tick(time.Minute) {
@@ -148,6 +149,7 @@ func init() {
 				continue
 			}
 			CurrentBusState = mergeWithState(newPing, 60000)
+			log.Printf("Updated state: %+v\n", CurrentBusState)
 		}
 	}()
 }

@@ -1,22 +1,9 @@
 import React from 'react';
 import GoogleMapReact from 'google-map-react';
-import {data} from '../busData/inner'
+import { innerdata } from '../busData/inner'
+import { outerdata } from '../busData/outer'
+import Popup from 'reactjs-popup'
 
-const BusStops = ({ text }) => (
-    <div style={{
-        color: 'white',
-        background: 'red',
-        padding: '7px 7px',
-        display: 'inline-flex',
-        textAlign: 'center',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: '100%',
-    
-    }}>
-        {text}
-    </div>
-);
 
 class MapView extends React.Component {
 
@@ -29,10 +16,20 @@ class MapView extends React.Component {
 
             },
             zoom: 15,
-            stops:[data]
+            innerstops: [innerdata],
+            outerstops: [outerdata],
+            isHovering: false
+
         }
     }
 
+
+    handleHover() {
+        console.log("HOVERING");
+        this.setState({
+            isHovering: !this.state.isHovering
+        })
+    }
 
     render() {
         return (
@@ -47,22 +44,56 @@ class MapView extends React.Component {
                     defaultCenter={this.state.center}
                     defaultZoom={this.state.zoom}
                 >
-
-                    {data.map((x) =>
-
-                        <BusStops
+                    {innerdata.map((x) =>
+                        <div
+                            onMouseEnter={this.handleHover.bind(this)}
+                            onMouseLeave={this.handleHover.bind(this)}
                             lat={x.lat}
                             lng={x.lng}
-                    
-                           
-                        />
+                            style={{
+                                color: 'white',
+                                background: 'red',
+                                padding: '7px 7px',
+                                display: 'inline-flex',
+                                textAlign: 'center',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                borderRadius: '100%',
+
+                            }}>
+
+                        </div>
                     )
 
                     }
 
+                    {outerdata.map((x) =>
 
+                        <div
+                            onMouseEnter={this.handleHover.bind(this)}
+                            onMouseLeave={this.handleHover.bind(this)}
+                            lat={x.lat}
+                            lng={x.lng}
+                            style={{
+                                color: 'white',
+                                background: 'red',
+                                padding: '7px 7px',
+                                display: 'inline-flex',
+                                textAlign: 'center',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                borderRadius: '100%',
+
+                            }}>
+
+                        </div>
+
+                    )
+
+                    }
                 </GoogleMapReact>
 
+             
             </div>
         )
     }

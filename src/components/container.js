@@ -1,6 +1,5 @@
 import React from 'react';
 import MapView from './mapView';
-import Title from './title';
 
 
 
@@ -9,6 +8,15 @@ class Container extends React.Component {
         super(props);
         this.state = {}
     }
+    handleHover(){
+
+
+        console.log("HOVERING");
+        this.setState({
+            isHovering:!this.state.isHovering
+        })
+    }
+    
     render() {
         return (
             <div>

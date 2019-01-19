@@ -1,4 +1,4 @@
-export const data = [
+export const innerdata = [
     {
         "name": "McLaughlin & Science Hill",
         "lat": 36.9999313354492,

@@ -7,32 +7,36 @@ import (
 	"net/http"
 )
 
-// BusData is a structure that
+// CurrentBusState is the current
+// the state of the buses.
+var CurrentBusState DataPlusPlus
+
+// Data is a structure that
 // contains the json response
 // from the ucsc taps server.
-type BusData struct {
+type Data struct {
 	ID   string  `json:"id"`
 	Lon  float64 `json:"lon"`
 	Lat  float64 `json:"lat"`
 	Type string  `json:"type"`
 }
 
-// BusDataPlusPlus is a structure that
+// DataPlusPlus is a structure that
 // contains data from Bus but with more
 // info
-type BusDataPlusPlus struct {
-	BusData
+type DataPlusPlus struct {
+	Data
 	Speed float64 `json:"speed"`
 	Angle float64 `json:"angle"`
 }
 
 // SlugResponsePlusPlus is a collection of
 // of BusDataPlusPlus
-type SlugResponsePlusPlus []BusDataPlusPlus
+type SlugResponsePlusPlus []DataPlusPlus
 
 // SlugResponse is a collection
 // of BusData
-type SlugResponse []BusData
+type SlugResponse []Data
 
 // GetBus calls the ucsc server
 // and returns a SlugResponse

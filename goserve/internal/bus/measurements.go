@@ -100,7 +100,7 @@ func GetBus() (*SlugResponse, error) {
 }
 
 func updateViaDummyBus() {
-	response, err := http.Get("http://35.184.180.21:8080/")
+	response, err := http.Get("http://35.224.117.29:8080/api/query-bus-state")
 	if err != nil {
 		log.Println(err)
 		return

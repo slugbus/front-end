@@ -79,3 +79,21 @@ func updateDB() {
 		log.Println("could not push to db", err)
 	}
 }
+
+// DRtoSRPP turns DummyResponse
+// into a SlugResponsePP
+func DRtoSRPP(dr database.DummyResponse) SlugResponsePP {
+	conversion := SlugResponsePlusPlus{}
+	for _, buses := range dr.Buses {
+		convertedBus := DataPlusPlus{
+			Angle: buses.Angle,
+			ID:    buses.ID,
+			Lat:   buses.Lat,
+			Long:  buses.Lon,
+			Speed: buses.Speed,
+			Type:  buses.Type,
+		}
+		conversion = append(conversion, convertedBus)
+	}
+	return conversion
+}

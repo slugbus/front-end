@@ -16,7 +16,7 @@ import (
 // from the server
 type DummyResponse struct {
 	Buses []struct {
-		Angle int     `json:"Angle"`
+		Angle float64 `json:"Angle"`
 		ID    string  `json:"ID"`
 		Lat   float64 `json:"Lat"`
 		Lon   int     `json:"Lon"`

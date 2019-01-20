@@ -19,6 +19,30 @@ type HeatData struct {
 	N         int   `json:"n"`
 }
 
+// ETAData is a structure that
+// represents temperature
+type ETAData struct {
+	Seconds int64 `json:"secs"`
+}
+
+// SendETA is a http handlers that sends an ETA
+func SendETA(w http.ResponseWriter, r *http.Request) {
+	sample := rand.NormFloat64()*(8*60) + (15 * 60)
+
+	d := ETAData{
+		Seconds: int64(sample),
+	}
+
+	bytes, err := json.Marshal(d)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(bytes)
+}
+
 // TestGet is a http Handler that returns the response from
 // bus.GetBus
 func TestGet(w http.ResponseWriter, r *http.Request) {

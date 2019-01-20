@@ -18,7 +18,17 @@ const customStyles = {
     }
 };
 
-const BusLogo = { url: require('./assets/mapIcons/Slug_Bus.png'), scaledSize: { width: 55, height: 35 } };
+const Slug_Bus = { url: require('./assets/mapIcons/Slug_Bus_Vert.png'), scaledSize: { width: 35, height: 55 } };
+const Slug_Bus_Vert = { url: require('./assets/mapIcons/Slug_Bus_Vert.png'), scaledSize: { width: 35, height: 55 } };
+const Slug_Bus_180 = { url: require('./assets/mapIcons/Slug_Bus_180.png'), scaledSize: { width: 35, height: 55 } };
+const Slug_Bus_45 = { url: require('./assets/mapIcons/Slug_Bus_45.png'), scaledSize: { width: 35, height: 55 } };
+const Slug_Bus_DR = { url: require('./assets/mapIcons/Slug_Bus_DR.png'), scaledSize: { width: 35, height: 55 } };
+const Slug_Bus_DL = { url: require('./assets/mapIcons/Slug_Bus_DL.png'), scaledSize: { width: 35, height: 55 } };
+const Slug_Bus_TR = { url: require('./assets/mapIcons/Slug_Bus_TR.png'), scaledSize: { width: 35, height: 55 } };
+const Slug_Bus_90 = { url: require('./assets/mapIcons/Slug_Bus_90.png'), scaledSize: { width: 35, height: 55 } };
+
+
+
 const logo = require('./assets/mapIcons/Logo_2.png')
 const BlueIcon = { url: require('./assets/mapIcons/Blue_Stop.png'), scaledSize: { width: 25, height: 32 } };
 const RedIcon = { url: require('./assets/mapIcons/Red_Stop.png'), scaledSize: { width: 25, height: 32 } }
@@ -137,9 +147,10 @@ export class MapView extends React.Component {
                     )
                     }
                     {this.props.busArray.map((x, index) =>
+                    //HEERERERER
                         <Marker
 
-                            options={{ icon: BusLogo }}
+                            options={{ icon: Slug_Bus_Vert }}
                             key={x.id}
                             title={`
                             ${x.name}

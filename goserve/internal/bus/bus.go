@@ -16,12 +16,14 @@ import (
 // the state of the buses.
 var CurrentBusState SlugResponsePlusPlus
 
+var TimePing = 2500
+
 // Data is a structure that
 // contains the json response
 // from the ucsc taps server.
 type Data struct {
 	ID   string  `json:"id"`
-	Lon  float64 `json:"lon"`
+	Lon  float64 `json:"lng"`
 	Lat  float64 `json:"lat"`
 	Type string  `json:"type"`
 }
@@ -120,7 +122,7 @@ func init() {
 	arrOfBuses := []*SlugResponse{}
 
 	count := 0
-	for range time.Tick(250 * time.Millisecond) {
+	for range time.Tick(3000 * time.Millisecond) {
 		if count == 2 {
 			break
 		}
@@ -140,11 +142,11 @@ func init() {
 		return
 	}
 
-	CurrentBusState = mergeUpdate(arrOfBuses[0], arrOfBuses[1], 60000)
+	CurrentBusState = mergeUpdate(arrOfBuses[0], arrOfBuses[1], 3000)
 	log.Printf("Started Initial state: %+v\n", CurrentBusState)
 
 	go func() {
-		for range time.Tick(10 * time.Millisecond) {
+		for range time.Tick(3000 * time.Millisecond) {
 
 			now := time.Now().Unix()
 			// Before we do anything send some data to firebase
@@ -162,7 +164,7 @@ func init() {
 				log.Println("could not get bus data: ", err)
 				continue
 			}
-			CurrentBusState = mergeWithState(newPing, 60000)
+			CurrentBusState = mergeWithState(newPing, 3000)
 			log.Printf("Updated state: %+v\n", CurrentBusState)
 		}
 	}()
@@ -173,8 +175,8 @@ func init() {
 func GetBus() (*SlugResponse, error) {
 
 	// Make a get request to the ucsc serveer
-	// response, err := http.Get("http://bts.ucsc.edu:8081/location/get")
-	response, err := http.Get("http://localhost:6969")
+	response, err := http.Get("http://bts.ucsc.edu:8081/location/get")
+	// response, err := http.Get("http://localhost:6969")
 
 	// Check for errs
 	if err != nil {

@@ -54,6 +54,7 @@ func giveData(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 		return
 	}
+	w.Header().Set("Content-Type", "application/json")
 
 	w.Write(data)
 }
@@ -68,7 +69,7 @@ func main() {
 	r.HandleFunc("/api/get_buses", giveData).Methods("GET")
 
 	srv := &http.Server{
-		Addr: ":8080",
+		Addr: "localhost:8080",
 		// Good practice to set timeouts to avoid Slowloris attacks.
 		WriteTimeout: time.Second * 15,
 		ReadTimeout:  time.Second * 15,

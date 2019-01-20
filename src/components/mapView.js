@@ -18,14 +18,14 @@ const customStyles = {
     }
 };
 
-const Slug_Bus = { url: require('./assets/mapIcons/Slug_Bus_Vert.png'), scaledSize: { width: 35, height: 55 } };
-const Slug_Bus_Vert = { url: require('./assets/mapIcons/Slug_Bus_Vert.png'), scaledSize: { width: 35, height: 55 } };
-const Slug_Bus_180 = { url: require('./assets/mapIcons/Slug_Bus_180.png'), scaledSize: { width: 35, height: 55 } };
-const Slug_Bus_45 = { url: require('./assets/mapIcons/Slug_Bus_45.png'), scaledSize: { width: 35, height: 55 } };
-const Slug_Bus_DR = { url: require('./assets/mapIcons/Slug_Bus_DR.png'), scaledSize: { width: 35, height: 55 } };
-const Slug_Bus_DL = { url: require('./assets/mapIcons/Slug_Bus_DL.png'), scaledSize: { width: 35, height: 55 } };
-const Slug_Bus_TR = { url: require('./assets/mapIcons/Slug_Bus_TR.png'), scaledSize: { width: 35, height: 55 } };
-const Slug_Bus_90 = { url: require('./assets/mapIcons/Slug_Bus_90.png'), scaledSize: { width: 35, height: 55 } };
+const Slug_Bus = { url: require('./assets/mapIcons/Slug_Bus.png'), scaledSize: { width: 80, height: 40 } };
+const Slug_Bus_Vert = { url: require('./assets/mapIcons/Slug_Bus_Vert.png'), scaledSize: { width: 40, height: 80 } };
+const Slug_Bus_180 = { url: require('./assets/mapIcons/Slug_Bus_180.png'), scaledSize: { width: 40, height: 80 } };
+const Slug_Bus_45 = { url: require('./assets/mapIcons/Slug_Bus_45.png'), scaledSize: { width: 75, height: 90 } };//----
+const Slug_Bus_DR = { url: require('./assets/mapIcons/Slug_Bus_DR.png'), scaledSize: { width: 75, height: 90 } };
+const Slug_Bus_DL = { url: require('./assets/mapIcons/Slug_Bus_DL.png'), scaledSize: { width: 75, height: 90 } };
+const Slug_Bus_TR = { url: require('./assets/mapIcons/Slug_Bus_TR.png'), scaledSize: { width: 75, height: 90 } };
+const Slug_Bus_90 = { url: require('./assets/mapIcons/Slug_Bus_90.png'), scaledSize: { width: 150, height: 90 } };
 
 
 
@@ -147,16 +147,17 @@ export class MapView extends React.Component {
                     )
                     }
                     {this.props.busArray.map((x, index) =>
-                    //HEERERERER
+                //HEERERERER
                         <Marker
 
-                            options={{ icon: Slug_Bus_Vert }}
+                            options={{ icon: Slug_Bus_TR }}
                             key={x.id}
                             title={`
-                            ${x.name}
-                            ${x.lat}
-                            ${x.id}
-                            ${x.type}`}
+                                ${x.name}
+                                ${x.lat}
+                                ${x.id}
+                                ${x.type}
+                            `}
                             position={{ lat: x.lat, lng: x.lgn }}>
                         </Marker>
                     )}

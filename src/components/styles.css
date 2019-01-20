@@ -4,18 +4,8 @@
     box-sizing: border-box;
   }
   
-  body {
-    height:100%;
-    background-image: url(wallpaper-weather.jpg);
-      -webkit-background-size: cover;
-      -moz-background-size: cover;
-      -o-background-size: cover;
-      background-size: cover;
-    
-  }
-  html{
-    
-  }
+ 
+
   #app{
     height:100%
   }
@@ -35,27 +25,23 @@
   }
   #wrapper{
       position: relative;
-  }
-  #over_map{
-      position: absolute;
-       top: 10px;
-        left: 10px;
-     z-index: 100
+      width: 100%;
+      height: 100%;
   }
   
-
-#floating-panel {
+.floating-panel {
     position: absolute;
-    top: 10px;
-    left: 25%;
-    z-index: 5;
-    text-align: center;
-    font-family: 'Roboto','sans-serif';
-    padding-left: 10px;
-    background-color: 'rgba(52, 52, 52, 0.8)';
-    color:'rgba(52, 52, 52, 0.8)';
-    
+    padding: 50px;
+    top: 100px;
+    left: 100px;
+    background: white;
    
+  }
+  #map{
+      position: absolute;
+      background: #eee;
+      width: 100%;
+  height: 100%;
   }
 
 

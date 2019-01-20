@@ -51,13 +51,8 @@ class Container extends React.Component {
 
     render() {
         return (
-            <div id="wrapper">
-
-
+    
                 <MapView busArray={this.state.busArray}></MapView>
-
-
-            </div>
 
         )
     }

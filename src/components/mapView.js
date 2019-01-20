@@ -2,7 +2,6 @@ import React from 'react';
 import { GoogleApiWrapper, Map, InfoWindow, Marker } from 'google-maps-react'
 import { innerdata } from '../busData/inner'
 import { outerdata } from '../busData/outer'
-import BarnPic from './assets/busStopPics/Barn.jpg'
 import Modal from 'react-modal';
 import BusModal from './busModal';
 import axios from 'axios'
@@ -80,19 +79,22 @@ export class MapView extends React.Component {
             showingInfoWindow: false
         })
     }
+    
 
     onRequestClose = () => {
         console.log("closed")
     }
     render() {
         return (
-            <div >
+            <div id="wrapper" >
 
-                <div id="floating-panel">
-                    <img style={{ width: 145, height: 55 }} src={logo}></img>
+                <div className="floating-panel">
+                    <img style={{ width: 145, height: 55 }} src={logo}  ></img>
 
                 </div>
+
                 <Map
+                    id="map"
                     google={this.props.google}
                     zoom={15.2}
                     onClick={this.onMapClicked.bind(this)}
@@ -132,11 +134,11 @@ export class MapView extends React.Component {
 
                         </Marker>
 
-
                     )
                     }
                     {this.props.busArray.map((x, index) =>
                         <Marker
+
                             options={{ icon: BusLogo }}
                             key={x.id}
                             title={`
@@ -151,7 +153,6 @@ export class MapView extends React.Component {
                 </Map>
 
 
-
                 <Modal
                     isOpen={this.state.stopDetailsVisible}
                     style={customStyles}
@@ -160,12 +161,10 @@ export class MapView extends React.Component {
                 >
                     <BusModal closeModal={this.closeModal.bind(this)} selectedStop={this.state.selectedStop} />
 
-
-
                 </Modal>
 
 
-            </div >
+            </div>
         )
     }
 }

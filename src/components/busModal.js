@@ -71,11 +71,21 @@ class BusModal extends React.Component {
                     <img  alignSelf="center" resizeMode="contain" style={{width:"50",height:"100"}} alt={this.props.selectedStop.name + " photo"} src={this.returnURL(this.props.selectedStop.name)}></img>
                 <div style={{fontSize:'25px',fontStyle:'italic', width:'100%', backgroundColor:"grey"}}></div>
                     <div className="border">
-                        <p style={{}}>{this.props.selectedStop.name}</p>
+                        <p style={{fontSize: '25px', fontStyle: 'bold'}}>{this.props.selectedStop.name}</p>
                     </div>
 
-                </div>
 
+                </div>
+            <div className="flex:1" style={{flex:1}}>
+                <div style={{flex:1, flexDirection:'col border col-md-6'}}>
+                    <p style={{fontSize:'15px', fontStyle:'italic'}}>Activity of Bus Stop: </p>
+                </div>
+            </div>
+            <div className="flex:1" style={{flex:1}}>
+                <div style={{flex:1, flexDirection:'col border col-md-6'}}>
+                    <p style={{fontSize:'15px', fontStyle:'italic'}}>Estimated Time of Arrival: </p>
+                </div>
+            </div>
             </div>
 
         )

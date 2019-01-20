@@ -42,6 +42,21 @@
         left: 10px;
      z-index: 100
   }
+  
+
+#floating-panel {
+    position: absolute;
+    top: 10px;
+    left: 25%;
+    z-index: 5;
+    text-align: center;
+    font-family: 'Roboto','sans-serif';
+    padding-left: 10px;
+    background-color: 'rgba(52, 52, 52, 0.8)';
+    color:'rgba(52, 52, 52, 0.8)';
+    
+   
+  }
 
 
 

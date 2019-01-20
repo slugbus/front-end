@@ -19,7 +19,7 @@ const customStyles = {
     }
 };
 
-
+const BusLogo = { url: require('./assets/mapIcons/Slug_Bus.png'), scaledSize: { width: 55, height: 35 } };
 const logo = require('./assets/mapIcons/Logo_2.png')
 const BlueIcon = { url: require('./assets/mapIcons/Blue_Stop.png'), scaledSize: { width: 25, height: 32 } };
 const RedIcon = { url: require('./assets/mapIcons/Red_Stop.png'), scaledSize: { width: 25, height: 32 } }
@@ -41,7 +41,6 @@ export class MapView extends React.Component {
             selectedStop: {},
             selectedStopURL: "",
             stopDetailsVisible: false,
-          
 
         }
     }
@@ -51,7 +50,8 @@ export class MapView extends React.Component {
     }
 
     componentDidMount() {
-        setInterval(this.updateBusMarkers.bind(this), 3000)
+        console.log("GERE", this.props)
+        //setInterval(this.updateBusMarkers.bind(this), 3000)
     }
     componentWillUnmount() {
         clearInterval(this.intervalId);
@@ -87,6 +87,11 @@ export class MapView extends React.Component {
     render() {
         return (
             <div >
+
+                <div id="floating-panel">
+                    <img style={{ width: 145, height: 55 }} src={logo}></img>
+
+                </div>
                 <Map
                     google={this.props.google}
                     zoom={15.2}
@@ -127,16 +132,25 @@ export class MapView extends React.Component {
 
                         </Marker>
 
+
                     )
                     }
+                    {this.props.busArray.map((x, index) =>
+                        <Marker
+                            options={{ icon: BusLogo }}
+                            key={x.id}
+                            title={`
+                            ${x.name}
+                            ${x.lat}
+                            ${x.id}
+                            ${x.type}`}
+                            position={{ lat: x.lat, lng: x.lgn }}>
+                        </Marker>
+                    )}
 
                 </Map>
 
-                <div id="over_map">
-                    <img style={{ width: 145, height: 55 }} src={logo}></img>
 
-
-                </div>
 
                 <Modal
                     isOpen={this.state.stopDetailsVisible}

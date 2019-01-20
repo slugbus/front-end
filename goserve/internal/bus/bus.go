@@ -16,8 +16,6 @@ import (
 // the state of the buses.
 var CurrentBusState SlugResponsePlusPlus
 
-var TimePing = 2500
-
 // Data is a structure that
 // contains the json response
 // from the ucsc taps server.

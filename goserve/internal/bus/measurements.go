@@ -68,6 +68,15 @@ func GetDistanceBusToStop(BusID string) geo.BusStop {
 	return geo.BusStop{}
 }
 
+func GetDistanceFromStopToStop(start, end int, distances []float64) float64 {
+	dist := 0.0
+	for start != end {
+		dist += distances[start]
+		start += (1 + len(distances)) % len(distances)
+	}
+	return dist
+}
+
 // GetBus calls the ucsc server
 // and returns a SlugResponse
 func GetBus() (*SlugResponse, error) {

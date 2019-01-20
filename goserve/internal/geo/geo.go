@@ -56,3 +56,12 @@ func GetDistance(start, end int, distances []float64) float64 {
 	}
 	return dist
 }
+
+func GetETA(distance float64, speed float64) float64 {
+	// get amount of time in hours
+	t := distance / speed
+	// convert to seconds from hours
+	t = t * 60 * 60
+
+	return t
+}

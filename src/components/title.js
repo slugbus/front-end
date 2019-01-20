@@ -7,21 +7,21 @@ class Title extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { 
-            center:{
-              
+        this.state = {
+            center: {
+
             }
-        
-         }
+
+        }
     }
-    render() { 
-        return ( 
+    render() {
+        return (
             <div>
                 <h1>Bus++</h1>
-            
+
             </div>
-         )
+        )
     }
 }
- 
+
 export default Title;

@@ -1,7 +1,9 @@
 package bus
 
 import (
+	"busplusplus/internal/database"
 	"busplusplus/internal/geo"
+	"context"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -143,6 +145,18 @@ func init() {
 
 	go func() {
 		for range time.Tick(10 * time.Millisecond) {
+
+			now := time.Now().Unix()
+			// Before we do anything send some data to firebase
+			_, err := database.Client.Collection("bus_states").Doc(fmt.Sprintf("%d", now)).Set(context.Background(), map[string]interface{}{
+				"time":  now,
+				"buses": CurrentBusState,
+			})
+
+			if err != nil {
+				log.Println("could not push to db", err)
+			}
+
 			newPing, err := GetBus()
 			if err != nil {
 				log.Println("could not get bus data: ", err)

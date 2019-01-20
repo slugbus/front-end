@@ -26,6 +26,8 @@ type Data struct {
 	Type string  `json:"type"`
 }
 
+var deltaT = 3000
+
 // DataPlusPlus is a structure that
 // contains data from Bus but with more
 // info
@@ -120,7 +122,7 @@ func init() {
 	arrOfBuses := []*SlugResponse{}
 
 	count := 0
-	for range time.Tick(3000 * time.Millisecond) {
+	for range time.Tick(time.Duration(deltaT) * time.Millisecond) {
 		if count == 2 {
 			break
 		}
@@ -140,11 +142,11 @@ func init() {
 		return
 	}
 
-	CurrentBusState = mergeUpdate(arrOfBuses[0], arrOfBuses[1], 3000)
+	CurrentBusState = mergeUpdate(arrOfBuses[0], arrOfBuses[1], float64(deltaT))
 	log.Printf("Started Initial state: %+v\n", CurrentBusState)
 
 	go func() {
-		for range time.Tick(3000 * time.Millisecond) {
+		for range time.Tick(time.Duration(deltaT) * time.Millisecond) {
 
 			now := time.Now().Unix()
 			// Before we do anything send some data to firebase
@@ -162,7 +164,7 @@ func init() {
 				log.Println("could not get bus data: ", err)
 				continue
 			}
-			CurrentBusState = mergeWithState(newPing, 3000)
+			CurrentBusState = mergeWithState(newPing, float64(deltaT))
 			log.Printf("Updated state: %+v\n", CurrentBusState)
 		}
 	}()

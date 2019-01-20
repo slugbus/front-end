@@ -29,7 +29,7 @@ var OuterStops = []BusStop{
 		Quad:       "Q3",
 	},
 	BusStop{
-		Name:       "Heller & Kresge College",
+		Name:       "Heller & Kresge College Outer",
 		Lat:        36.9992790222168,
 		Long:       -122.064552307129,
 		IsInner:    false,
@@ -38,7 +38,7 @@ var OuterStops = []BusStop{
 		Quad:       "Q1",
 	},
 	BusStop{
-		Name:       "McLaughlin & Science Hill",
+		Name:       "McLaughlin & Science Hill Outer",
 		Lat:        37.0000228881836,
 		Long:       -122.062339782715,
 		IsInner:    false,
@@ -47,7 +47,7 @@ var OuterStops = []BusStop{
 		Quad:       "Q1",
 	},
 	BusStop{
-		Name:       "McLaughlin & College 9 & 10 - Health Center",
+		Name:       "McLaughlin & College 9 & 10 - Health Center Outer",
 		Lat:        36.9999389648438,
 		Long:       -122.058349609375,
 		IsInner:    false,
@@ -65,7 +65,7 @@ var OuterStops = []BusStop{
 		Quad:       "Q2",
 	},
 	BusStop{
-		Name:       "Hagar & Bookstore-Stevenson College",
+		Name:       "Hagar & Bookstore Outer",
 		Lat:        36.9974822998047,
 		Long:       -122.055030822754,
 		IsInner:    false,
@@ -83,7 +83,7 @@ var OuterStops = []BusStop{
 		Quad:       "Q2",
 	},
 	BusStop{
-		Name:       "Hagar & East Remote",
+		Name:       "Hagar & East Remote Outer",
 		Lat:        36.9912986755371,
 		Long:       -122.054656982422,
 		IsInner:    false,
@@ -92,7 +92,7 @@ var OuterStops = []BusStop{
 		Quad:       "Q3",
 	},
 	BusStop{
-		Name:       "Hagar & Lower Quarry Rd",
+		Name:       "Hagar & Lower Quarry Rd Outer",
 		Lat:        36.985912322998,
 		Long:       -122.053520202637,
 		IsInner:    false,
@@ -101,7 +101,7 @@ var OuterStops = []BusStop{
 		Quad:       "Q3",
 	},
 	BusStop{
-		Name:       "Coolidge & Hagar",
+		Name:       "Coolidge & Hagar Outer",
 		Lat:        36.9813537597656,
 		Long:       -122.051971435547,
 		IsInner:    false,
@@ -119,7 +119,7 @@ var OuterStops = []BusStop{
 		Quad:       "Q3",
 	},
 	BusStop{
-		Name:       "High & Western Dr",
+		Name:       "High & Western Dr Outer",
 		Lat:        36.9786148071289,
 		Long:       -122.05785369873,
 		IsInner:    false,
@@ -137,7 +137,7 @@ var OuterStops = []BusStop{
 		Quad:       "Q3",
 	},
 	BusStop{
-		Name:       "Empire Grade & Arboretum",
+		Name:       "Empire Grade & Arboretum Outer",
 		Lat:        36.9836616516113,
 		Long:       -122.064964294434,
 		IsInner:    false,
@@ -146,7 +146,7 @@ var OuterStops = []BusStop{
 		Quad:       "Q4",
 	},
 	BusStop{
-		Name:       "Heller & Oakes College",
+		Name:       "Heller & Oakes College Outer",
 		Lat:        36.989917755127,
 		Long:       -122.067230224609,
 		IsInner:    false,
@@ -164,7 +164,7 @@ var OuterStops = []BusStop{
 		Quad:       "Q4",
 	},
 	BusStop{
-		Name:       "Heller & College 8 & Porter",
+		Name:       "Heller & College 8 & Porter Outer",
 		Lat:        36.992977142334,
 		Long:       -122.065223693848,
 		IsInner:    false,
@@ -176,7 +176,7 @@ var OuterStops = []BusStop{
 
 var InnerStops = []BusStop{
 	BusStop{
-		Name:       "McLaughlin & Science Hill",
+		Name:       "McLaughlin & Science Hill Inner",
 		Lat:        36.9999313354492,
 		Long:       -122.062049865723,
 		IsInner:    true,
@@ -194,7 +194,7 @@ var InnerStops = []BusStop{
 		Quad:       "Q1",
 	},
 	BusStop{
-		Name:       "Heller & Kresge College",
+		Name:       "Heller & Kresge College Inner",
 		Lat:        36.999210357666,
 		Long:       -122.064338684082,
 		IsInner:    true,
@@ -203,7 +203,7 @@ var InnerStops = []BusStop{
 		Quad:       "Q1",
 	},
 	BusStop{
-		Name:       "McLaughlin & College 9 & 10 - Health Center",
+		Name:       "McLaughlin & College 9 & 10 - Health Center Inner",
 		Lat:        36.9997062683105,
 		Long:       -122.05834197998,
 		IsInner:    true,
@@ -212,7 +212,7 @@ var InnerStops = []BusStop{
 		Quad:       "Q2",
 	},
 	BusStop{
-		Name:       "Hagar & Bookstore",
+		Name:       "Hagar & Bookstore Inner",
 		Lat:        36.9966621398926,
 		Long:       -122.055480957031,
 		IsInner:    true,
@@ -221,7 +221,7 @@ var InnerStops = []BusStop{
 		Quad:       "Q2",
 	},
 	BusStop{
-		Name:       "Hagar & East Remote",
+		Name:       "Hagar & East Remote Inner",
 		Lat:        36.9912567138672,
 		Long:       -122.054962158203,
 		IsInner:    true,
@@ -230,7 +230,7 @@ var InnerStops = []BusStop{
 		Quad:       "Q3",
 	},
 	BusStop{
-		Name:       "Hagar & Lower Quarry Rd",
+		Name:       "Hagar & Lower Quarry Rd Inner",
 		Lat:        36.985523223877,
 		Long:       -122.053588867188,
 		IsInner:    true,
@@ -239,7 +239,7 @@ var InnerStops = []BusStop{
 		Quad:       "Q3",
 	},
 	BusStop{
-		Name:       "Coolidge & Hagar",
+		Name:       "Coolidge & Hagar Inner",
 		Lat:        36.9815368652344,
 		Long:       -122.052131652832,
 		IsInner:    true,
@@ -257,7 +257,7 @@ var InnerStops = []BusStop{
 		Quad:       "Q3",
 	},
 	BusStop{
-		Name:       "High & Barn Theater",
+		Name:       "High & Barn Theater Inner",
 		Lat:        36.9773025512695,
 		Long:       -122.054328918457,
 		IsInner:    true,
@@ -266,7 +266,7 @@ var InnerStops = []BusStop{
 		Quad:       "Q3",
 	},
 	BusStop{
-		Name:       "Empire Grade & Arboretum",
+		Name:       "Empire Grade & Arboretum Inner",
 		Lat:        36.9826698303223,
 		Long:       -122.062492370605,
 		IsInner:    true,
@@ -275,7 +275,7 @@ var InnerStops = []BusStop{
 		Quad:       "Q4",
 	},
 	BusStop{
-		Name:       "Heller & Oakes College",
+		Name:       "Heller & Oakes College Inner",
 		Lat:        36.9905776977539,
 		Long:       -122.066116333008,
 		IsInner:    true,
@@ -284,7 +284,7 @@ var InnerStops = []BusStop{
 		Quad:       "Q4",
 	},
 	BusStop{
-		Name:       "Heller & College 8 & Porter",
+		Name:       "Heller & College 8 & Porter Inner",
 		Lat:        36.9927787780762,
 		Long:       -122.064880371094,
 		IsInner:    true,

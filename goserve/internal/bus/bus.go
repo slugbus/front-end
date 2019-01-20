@@ -16,56 +16,66 @@ var deltaT = 3000
 // the state of the buses.
 var CurrentBusState SlugResponsePlusPlus
 
-// TODO: REFACTOR
 func init() {
-
+	// Make an array of responses
 	arrOfBuses := []*SlugResponse{}
-
+	// Keep a count
 	count := 0
+	// Ping the server twice over the course of deltaT ms
 	for range time.Tick(time.Duration(deltaT) * time.Millisecond) {
 		if count == 2 {
 			break
 		}
-
 		bus, err := GetBus()
 		if err != nil {
 			log.Printf("could not get bus info: %v\n", err)
 			return
 		}
-
 		arrOfBuses = append(arrOfBuses, bus)
 		count++
 	}
 
+	// Check to see if we did get two pings
 	if len(arrOfBuses) != 2 {
 		log.Printf("wanted 2 data points got %d data points", len(arrOfBuses))
 		return
 	}
-
+	// If we did get two pings merge these data points to prodcue more information
+	// from them.
 	CurrentBusState = mergeUpdate(arrOfBuses[0], arrOfBuses[1], float64(deltaT))
 	log.Printf("Started Initial state: %+v\n", CurrentBusState)
 
-	go func() {
-		for range time.Tick(time.Duration(deltaT) * time.Millisecond) {
+	// Start update the state asynchronously
+	go asyncUpdate()
+}
 
-			now := time.Now().Unix()
-			// Before we do anything send some data to firebase
-			_, err := database.Client.Collection("bus_states").Doc(fmt.Sprintf("%d", now)).Set(context.Background(), map[string]interface{}{
-				"time":  now,
-				"buses": CurrentBusState,
-			})
+// Async update updates
+// the state of the server asynchronously
+func asyncUpdate() {
+	for range time.Tick(time.Duration(deltaT) * time.Millisecond) {
+		// Before we do anything send some data to firebase
+		// for stats and analysis later
+		updateDB()
 
-			if err != nil {
-				log.Println("could not push to db", err)
-			}
-
-			newPing, err := GetBus()
-			if err != nil {
-				log.Println("could not get bus data: ", err)
-				continue
-			}
-			CurrentBusState = mergeWithState(newPing, float64(deltaT))
-			log.Printf("Updated state: %+v\n", CurrentBusState)
+		// Otherwise ping the server again
+		newPing, err := GetBus()
+		if err != nil {
+			log.Println("could not get bus data: ", err)
+			continue
 		}
-	}()
+		// and merge its state with our current state.
+		CurrentBusState = mergeWithState(newPing, float64(deltaT))
+		log.Printf("Updated state: %+v\n", CurrentBusState)
+	}
+}
+
+func updateDB() {
+	now := time.Now().Unix()
+	_, err := database.Client.Collection("bus_states").Doc(fmt.Sprintf("%d", now)).Set(context.Background(), map[string]interface{}{
+		"time":  now,
+		"buses": CurrentBusState,
+	})
+	if err != nil {
+		log.Println("could not push to db", err)
+	}
 }

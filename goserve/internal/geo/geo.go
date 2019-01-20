@@ -4,20 +4,6 @@ import (
 	"math"
 )
 
-type Quad int
-
-const (
-	Q1 Quad = iota + 1
-	Q2
-	Q3
-	Q4
-)
-
-const (
-	CenterLat  = 36.99250
-	CenterLong = -122.060569
-)
-
 // Speed returns the speed of a bus in mph
 // where d is in miles and t is in milli
 func Speed(d float64, t float64) float64 {
@@ -62,7 +48,7 @@ func Dist(lat1, long1, lat2, long2 float64) float64 {
 	return miles
 }
 
-// returns the quadrant of a given lat and long coordinate
+// MapQuad returns the quadrant of a given lat and long coordinate
 func MapQuad(Lat, Long float64) Quad {
 	// if in the upper left of campus return Quad 1
 	if Lat < CenterLat && Long < CenterLong {
@@ -78,4 +64,13 @@ func MapQuad(Lat, Long float64) Quad {
 	}
 	// if in the bottom left return Quad4
 	return Q4
+}
+
+func GetDistance(start, end int, distances []float64) float64 {
+	dist := 0.0
+	for start != end {
+		dist += distances[start]
+		start += (1 + len(distances)) % len(distances)
+	}
+	return dist
 }

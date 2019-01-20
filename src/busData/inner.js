@@ -8,7 +8,6 @@ export const innerdata = [
         "lng": -122.062049865723,
         "uid": "stop1",
         "pic": './assets/stopStopPics/Science_Hill.jpg'
-
     },
 
     {

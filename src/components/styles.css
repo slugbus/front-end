@@ -1,0 +1,48 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  
+ 
+
+  #app{
+    height:100%
+  }
+
+.modalHead{
+    flex: 1;
+    justifyContent: 'center';
+    alignItems: 'center';
+    alignContent: 'center';
+ }
+ .busPhoto{
+     width:45%;
+     height:45%;
+ }
+ .border{
+    border: 5px solid black;
+  }
+  #wrapper{
+      position: relative;
+      width: 100%;
+      height: 100%;
+  }
+  
+.floating-panel {
+    position: absolute;
+    padding: 50px;
+    top: 100px;
+    left: 100px;
+    background: white;
+   
+  }
+  #map{
+      position: absolute;
+      background: #eee;
+      width: 100%;
+  height: 100%;
+  }
+
+
+

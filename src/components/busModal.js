@@ -47,6 +47,7 @@ class BusModal extends React.Component {
             case "West Remote Parking Lot": return West_Remote;
             case "McLaughlin & Crown College": return Crown;
             case "Hagar & Bookstore-Stevenson College": return Bookstore;
+            case "Hagar & Bookstore": return Bookstore;
             case "Hagar & Field House East": return East_Field_House;
             case "Coolidge & Main Entrance": return Main_Entrance;
             case "Empire Grade & Tosca Terrace": return Empire_Grade;
@@ -66,12 +67,11 @@ class BusModal extends React.Component {
     render() {
         return (
             <div className="flex:1" style={{flex:1 }}>
-                <div style={{flex:1, flexDirection:'col col-md-6'}}>
-                    <img style={{width:"50%",height:"50%"}} alt={this.props.selectedStop.name + " photo"} src={this.returnURL(this.props.selectedStop.name)}></img>
-
-
-                    <div>
-                        <p>{this.props.selectedStop.name}</p>
+                <div style={{flex:1, flexDirection:'col border col-md-6'}}>
+                    <img  alignSelf="center" resizeMode="contain" style={{width:"50",height:"100"}} alt={this.props.selectedStop.name + " photo"} src={this.returnURL(this.props.selectedStop.name)}></img>
+                <div style={{fontSize:'25px',fontStyle:'italic', width:'100%', backgroundColor:"grey"}}></div>
+                    <div className="border">
+                        <p style={{}}>{this.props.selectedStop.name}</p>
                     </div>
 
                 </div>

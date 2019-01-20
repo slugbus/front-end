@@ -11,7 +11,7 @@ class MapMarker extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            
+
         }
     }
 
@@ -19,7 +19,7 @@ class MapMarker extends React.Component {
     render() {
         return (
             <div
-                onMouseEnter={this.props.updateLocation.bind(this,this.props.uid)}
+                onMouseEnter={this.props.updateLocation.bind(this, this.props.uid)}
                 lat={this.props.markerLat}
                 lng={this.props.markerLng}
                 style={{

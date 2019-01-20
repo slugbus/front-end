@@ -5,6 +5,7 @@ import { outerdata } from '../busData/outer'
 import BarnPic from './assets/busStopPics/Barn.jpg'
 import Modal from 'react-modal';
 import BusModal from './busModal';
+import axios from 'axios'
 const customStyles = {
     content: {
         top: '50%',
@@ -12,10 +13,14 @@ const customStyles = {
         right: 'auto',
         bottom: 'auto',
         marginRight: '-50%',
-        transform: 'translate(-50%, -50%)'
+        padding: '-10%',
+        transform: 'translate(-50%, -50%)',
+        display: 'block'
     }
 };
 
+
+const logo = require('./assets/mapIcons/Logo_2.png')
 const BlueIcon = { url: require('./assets/mapIcons/Blue_Stop.png'), scaledSize: { width: 25, height: 32 } };
 const RedIcon = { url: require('./assets/mapIcons/Red_Stop.png'), scaledSize: { width: 25, height: 32 } }
 export class MapView extends React.Component {
@@ -35,22 +40,27 @@ export class MapView extends React.Component {
             markerObjects: [],
             selectedStop: {},
             selectedStopURL: "",
-            stopDetailsVisible:false
+            stopDetailsVisible: false,
+          
 
         }
     }
 
 
-
-    updateLocation(name) {
-        this.setState({
-            currentLocation: name
-        })
+    updateBusMarkers() {
     }
+
+    componentDidMount() {
+        setInterval(this.updateBusMarkers.bind(this), 3000)
+    }
+    componentWillUnmount() {
+        clearInterval(this.intervalId);
+    }
+
 
     onMarkerClick(busStop) {
 
-        console.log("DGSG",busStop)
+        console.log("DGSG", busStop)
         this.setState({
             selectedStop: busStop,
             selectedStopURL: busStop.pic,
@@ -58,9 +68,9 @@ export class MapView extends React.Component {
         });
     }
 
-    closeModal(){
+    closeModal() {
         this.setState({
-            stopDetailsVisible:false
+            stopDetailsVisible: false
         })
     }
 
@@ -71,16 +81,12 @@ export class MapView extends React.Component {
         })
     }
 
-onRequestClose=()=>{
-    console.log("closed")
-}
+    onRequestClose = () => {
+        console.log("closed")
+    }
     render() {
         return (
-            <div style={{ height: '100vh', width: '100%' }}>
-                <div style={{ backgroundColor: 'transparent', marginTop: -21, marginBottom: -10 }}>
-                    <h1>Bus++</h1>
-                </div>
-
+            <div >
                 <Map
                     google={this.props.google}
                     zoom={15.2}
@@ -90,6 +96,7 @@ onRequestClose=()=>{
                         lng: -122.058555
                     }}
                 >
+
                     {innerdata.map((x, index) =>
 
                         <Marker
@@ -124,6 +131,13 @@ onRequestClose=()=>{
                     }
 
                 </Map>
+
+                <div id="over_map">
+                    <img style={{ width: 145, height: 55 }} src={logo}></img>
+
+
+                </div>
+
                 <Modal
                     isOpen={this.state.stopDetailsVisible}
                     style={customStyles}

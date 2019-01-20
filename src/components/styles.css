@@ -30,14 +30,18 @@
      width:45%;
      height:45%;
  }
+ .border{
+    border: 5px solid black;
+  }
+  #wrapper{
+      position: relative;
+  }
+  #over_map{
+      position: absolute;
+       top: 10px;
+        left: 10px;
+     z-index: 100
+  }
 
 
- .flex-rectangle{
-    width: 100%;
-    background: #ca0164;
-}
-.flex-rectangle:before{
-    content: "";
-    display: block;
-    padding-top: 25%;
-}
+

@@ -103,3 +103,28 @@ class MapView extends React.Component {
 export default MapView;
 
 
+busArray[
+    {
+        angle:0,
+        id:"84",
+        lat:36.98868,
+        lgn:-122.05421,
+        speed:0,
+        type:"LOOP"
+     },
+     {
+      angle:0,
+        id:"85",
+        lat:36.977905,
+        lgn:-122.05425,
+        speed:0,
+        type:"OUT OF SERVICE"   
+     },{
+         angle:109,
+        id:"97",
+        lat:36.996716,
+        lgn:-122.055405,
+        speed:1.047,
+        type:"LOOP"
+     }
+]

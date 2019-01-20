@@ -2,7 +2,6 @@ package bus
 
 import (
 	"busplusplus/internal/database"
-	"busplusplus/internal/geo"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -10,72 +9,72 @@ import (
 	"net/http"
 )
 
-// GetDistanceBusToStop is used to calculate the distance to the closest
-// bus stop to a given bus
-func GetDistanceBusToStop(BusID string) geo.BusStop {
-	// search for the bus object in SlugResponsePlusPlus
-	CurrentBus := DataPlusPlus{}
+// // GetDistanceBusToStop is used to calculate the distance to the closest
+// // bus stop to a given bus
+// func GetDistanceBusToStop(BusID string) geo.BusStop {
+// 	// search for the bus object in SlugResponsePlusPlus
+// 	CurrentBus := DataPlusPlus{}
 
-	for _, BusObj := range CurrentBusState {
-		if BusObj.ID == BusID {
-			CurrentBus = BusObj
-			break
-		}
+// 	for _, BusObj := range CurrentBusState {
+// 		if BusObj.ID == BusID {
+// 			CurrentBus = BusObj
+// 			break
+// 		}
 
-	}
+// 	}
 
-	Quadrant := geo.MapQuad(CurrentBus.Lat, CurrentBus.Data.Lon)
-	InQuadHash := map[geo.BusStop]float64{}
-	minHash := 1234567890.0
+// 	Quadrant := geo.MapQuad(CurrentBus.Lat, CurrentBus.Data.Lon)
+// 	InQuadHash := map[geo.BusStop]float64{}
+// 	minHash := 1234567890.0
 
-	if CurrentBus.Angle >= 180 {
-		for _, CounterClock := range geo.OuterStops {
-			if CounterClock.Quad == Quadrant {
-				InQuadHash[CounterClock] = geo.Dist(CurrentBus.Data.Lat, CurrentBus.Data.Lon, CounterClock.Lat, CounterClock.Long)
-			}
-		}
-		for _, v := range InQuadHash {
-			if v < minHash {
-				minHash = v
-			}
-		}
+// 	if CurrentBus.Angle >= 180 {
+// 		for _, CounterClock := range geo.OuterStops {
+// 			if CounterClock.Quad == Quadrant {
+// 				InQuadHash[CounterClock] = geo.Dist(CurrentBus.Data.Lat, CurrentBus.Data.Lon, CounterClock.Lat, CounterClock.Long)
+// 			}
+// 		}
+// 		for _, v := range InQuadHash {
+// 			if v < minHash {
+// 				minHash = v
+// 			}
+// 		}
 
-		for k, v := range InQuadHash {
-			if v == minHash {
-				return k
-			}
-		}
+// 		for k, v := range InQuadHash {
+// 			if v == minHash {
+// 				return k
+// 			}
+// 		}
 
-	} else {
-		for _, ClockWise := range geo.InnerStops {
-			if ClockWise.Quad == Quadrant {
-				InQuadHash[ClockWise] = geo.Dist(CurrentBus.Data.Lat, CurrentBus.Data.Lon, ClockWise.Lat, ClockWise.Long)
-			}
-		}
-		for _, z := range InQuadHash {
-			if z < minHash {
-				minHash = z
-			}
-		}
+// 	} else {
+// 		for _, ClockWise := range geo.InnerStops {
+// 			if ClockWise.Quad == Quadrant {
+// 				InQuadHash[ClockWise] = geo.Dist(CurrentBus.Data.Lat, CurrentBus.Data.Lon, ClockWise.Lat, ClockWise.Long)
+// 			}
+// 		}
+// 		for _, z := range InQuadHash {
+// 			if z < minHash {
+// 				minHash = z
+// 			}
+// 		}
 
-		for x, y := range InQuadHash {
-			if y == minHash {
-				return x
-			}
-		}
-	}
+// 		for x, y := range InQuadHash {
+// 			if y == minHash {
+// 				return x
+// 			}
+// 		}
+// 	}
 
-	return geo.BusStop{}
-}
+// 	return geo.BusStop{}
+// }
 
-func GetDistanceFromStopToStop(start, end int, distances []float64) float64 {
-	dist := 0.0
-	for start != end {
-		dist += distances[start]
-		start += (1 + len(distances)) % len(distances)
-	}
-	return dist
-}
+// func GetDistanceFromStopToStop(start, end int, distances []float64) float64 {
+// 	dist := 0.0
+// 	for start != end {
+// 		dist += distances[start]
+// 		start += (1 + len(distances)) % len(distances)
+// 	}
+// 	return dist
+// }
 
 // GetBus calls the ucsc server
 // and returns a SlugResponse

@@ -1,0 +1,43 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    height:100%;
+    background-image: url(wallpaper-weather.jpg);
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+    
+  }
+  html{
+    
+  }
+  #app{
+    height:100%
+  }
+
+.modalHead{
+    flex: 1;
+    justifyContent: 'center';
+    alignItems: 'center';
+    alignContent: 'center';
+ }
+ .busPhoto{
+     width:45%;
+     height:45%;
+ }
+
+
+ .flex-rectangle{
+    width: 100%;
+    background: #ca0164;
+}
+.flex-rectangle:before{
+    content: "";
+    display: block;
+    padding-top: 25%;
+}

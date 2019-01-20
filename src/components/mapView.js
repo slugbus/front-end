@@ -2,7 +2,9 @@ import React from 'react';
 import { GoogleApiWrapper, Map, InfoWindow, Marker } from 'google-maps-react'
 import { innerdata } from '../busData/inner'
 import { outerdata } from '../busData/outer'
+import BarnPic from './assets/busStopPics/Barn.jpg'
 import Modal from 'react-modal';
+import BusModal from './busModal';
 const customStyles = {
     content: {
         top: '50%',
@@ -15,10 +17,8 @@ const customStyles = {
 };
 
 const BlueIcon = { url: require('./assets/mapIcons/Blue_Stop.png'), scaledSize: { width: 25, height: 32 } };
-const RedIcon = { url: require('./assets/mapIcons/Red_Stop.png'),scaledSize: { width: 25, height: 32 } }
+const RedIcon = { url: require('./assets/mapIcons/Red_Stop.png'), scaledSize: { width: 25, height: 32 } }
 export class MapView extends React.Component {
-
-
 
     constructor(props) {
         super(props);
@@ -33,9 +33,9 @@ export class MapView extends React.Component {
             showingInfoWindow: false,
             activeMarker: {},
             markerObjects: [],
-            selectedPlace: {},
-            infoWindow: null
-
+            selectedStop: {},
+            selectedStopURL: "",
+            stopDetailsVisible:false
 
         }
     }
@@ -48,27 +48,32 @@ export class MapView extends React.Component {
         })
     }
 
+    onMarkerClick(busStop) {
 
-
-    onMarkerClick(props, marker, e) {
-
-        console.log("DGSG")
+        console.log("DGSG",busStop)
         this.setState({
-            selectedPlace: props,
-            activeMarker: marker,
+            selectedStop: busStop,
+            selectedStopURL: busStop.pic,
             stopDetailsVisible: true
         });
+    }
+
+    closeModal(){
+        this.setState({
+            stopDetailsVisible:false
+        })
     }
 
     onMapClicked() {
         console.log("MAP CLICKED");
         this.setState({
-
             showingInfoWindow: false
         })
     }
 
-
+onRequestClose=()=>{
+    console.log("closed")
+}
     render() {
         return (
             <div style={{ height: '100vh', width: '100%' }}>
@@ -78,10 +83,10 @@ export class MapView extends React.Component {
 
                 <Map
                     google={this.props.google}
-                    zoom={15}
+                    zoom={15.2}
                     onClick={this.onMapClicked.bind(this)}
                     initialCenter={{
-                        lat: 36.990790,
+                        lat: 36.989,
                         lng: -122.058555
                     }}
                 >
@@ -90,36 +95,28 @@ export class MapView extends React.Component {
                         <Marker
                             options={{ icon: BlueIcon }}
                             title={`${x.name}
-                                     ${x.lat}`}
+                                     ${x.lat}
+                                     ${x.uid}
+                                     ${x.pic}`}
                             key={x.uid}
                             position={{ lat: x.lat, lng: x.lng }}
-                            onClick={this.onMarkerClick.bind(this)}
+                            onClick={this.onMarkerClick.bind(this, x)}
                         >
                         </Marker>
-
-
                     )
                     }
                     {outerdata.map((x, index) =>
                         <Marker
                             options={{ icon: RedIcon }}
-                            onClick={this.onMarkerClick.bind(this)}
+                            onClick={this.onMarkerClick.bind(this, x)}
                             key={x.uid}
                             title={`
                             ${x.name}
-                            ${x.lat}`}
+                            ${x.lat}
+                            ${x.uid}
+                            ${x.pic}`}
                             position={{ lat: x.lat, lng: x.lng }}
                         >
-
-                            {x.name === this.state.activeMarker.title && (
-                                <InfoWindow>
-                                    <div>
-                                        <h1>info widnow shit</h1>
-                                    </div>
-
-                                </InfoWindow>
-
-                            )}
 
                         </Marker>
 
@@ -127,21 +124,13 @@ export class MapView extends React.Component {
                     }
 
                 </Map>
-
                 <Modal
                     isOpen={this.state.stopDetailsVisible}
                     style={customStyles}
+                    shouldCloseOnOverlayClick={true}
+                    onRequestClose={this.closeModal.bind(this)}
                 >
-
-                    <div>
-                        <button className="btn btn-danger"> X</button>
-                        <div>
-                            <p></p>
-                        </div>
-
-
-                    </div>
-
+                    <BusModal closeModal={this.closeModal.bind(this)} selectedStop={this.state.selectedStop} />
 
 
 

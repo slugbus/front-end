@@ -11,6 +11,21 @@ import (
 	"google.golang.org/api/option"
 )
 
+// A DummyResponse is a struct
+// that represent the data output
+// from the server
+type DummyResponse struct {
+	Buses []struct {
+		Angle int     `json:"Angle"`
+		ID    string  `json:"ID"`
+		Lat   float64 `json:"Lat"`
+		Lon   int     `json:"Lon"`
+		Speed float64 `json:"Speed"`
+		Type  string  `json:"Type"`
+	} `json:"buses"`
+	Time int `json:"time"`
+}
+
 // Client is a an authenticated reference to our fire
 // store db
 var Client *firestore.Client

@@ -26,6 +26,7 @@ func main() {
 	r.HandleFunc("/api/get_stops", routes.SendBusiness).Methods("GET")
 	r.HandleFunc("/api/test_get", routes.TestGet).Methods("GET")
 	r.HandleFunc("/api/get_buses", routes.GivePlusPlusData).Methods("GET")
+	r.HandleFunc("/api/calc_eta", routes.SendETA).Methods("GET")
 
 	// Make a server
 	srv := &http.Server{

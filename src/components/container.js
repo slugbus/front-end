@@ -16,7 +16,7 @@ class Container extends React.Component {
     componentDidMount() {
 
 
-        this.intervalId = setInterval(() => this.updateBusMarkers(), 3000);
+        this.intervalId = setInterval(() => this.updateBusMarkers(), 5000);
         this.updateBusMarkers()
 
     }

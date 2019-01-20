@@ -52,7 +52,8 @@ export class MapView extends React.Component {
             selectedBus: {},
             selectedStopURL: "",
             stopDetailsVisible: false,
-            busDetailsVisible: false
+            busDetailsVisible: false,
+            eta: ""
 
         }
     }
@@ -82,10 +83,23 @@ export class MapView extends React.Component {
         if (marker.type === "LOOP") {
             console.log("Fuck")
 
-            this.setState({
-                selectedBus: marker,
-                busDetailsVisible: true
-            })
+            axios.get(`http://35.233.194.110:8080/api/calc_eta`)
+                .then(res => {
+                    console.log("ETA", res.data);
+
+
+                    var minutes = Math.floor(res.data.secs / 60);
+
+
+                    this.setState({
+                        selectedBus: marker,
+                        busDetailsVisible: true,
+                        eta: minutes
+
+                    })
+
+                })
+
         } else {
 
             this.setState({
@@ -94,15 +108,15 @@ export class MapView extends React.Component {
                 stopDetailsVisible: true
             });
 
-
         }
 
 
-        // axios.post(`http://107.178.217.91:8080/api/query-bus-state`
-        // .then(reponse=>{
-        //     console.log("POST RESPONSE",repose.dat)
-        // }))
     }
+
+
+
+
+
     closeStopModal() {
         this.setState({
             stopDetailsVisible: false
@@ -210,7 +224,7 @@ export class MapView extends React.Component {
                     shouldCloseOnOverlayClick={true}
                     onRequestClose={this.closeBusModal.bind(this)}
                 >
-                    <BusModal closeBusModal={this.closeBusModal.bind(this)} selectedStop={this.state.selectedBus} />
+                    <BusModal eta={this.state.eta} closeBusModal={this.closeBusModal.bind(this)} selectedStop={this.state.selectedBus} />
 
                 </Modal>
 

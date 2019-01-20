@@ -99,8 +99,8 @@ class stopModal extends React.Component {
 
                     <div style={{}} className="row">
                         <button
-                        
-                        className="btn btn-primary btn-large btn-block">Street View</button>
+                            onClick = {this.props.closeStopModal.bind(this)}
+                        className="btn btn-danger btn-large btn-block">Close</button>
 
                     </div>
                 </div>

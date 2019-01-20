@@ -10,11 +10,12 @@ type BusStop struct {
 
 var OuterStops = []BusStop{
 	BusStop{
-		Name:    "West Remote Parking Lot",
-		Lat:     36.988537,
-		Long:    -122.064799,
-		IsInner: false,
-		ID:      -1,
+		Name:       "West Remote Parking Lot",
+		Lat:        36.988537,
+		Long:       -122.064799,
+		IsInner:    false,
+		ID:         -1,
+		DistToNext: 0.8,
 	},
 	BusStop{
 		Name:       "East Remote Parking Lot",

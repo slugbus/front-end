@@ -48,24 +48,6 @@ func Dist(lat1, long1, lat2, long2 float64) float64 {
 	return miles
 }
 
-// MapQuad returns the quadrant of a given lat and long coordinate
-func MapQuad(Lat, Long float64) Quad {
-	// if in the upper left of campus return Quad 1
-	if Lat < CenterLat && Long < CenterLong {
-		return Q1
-	}
-	// if in the upper right of campus return Quad 2
-	if Lat > CenterLat && Long < CenterLong {
-		return Q2
-	}
-	// if in the bottom right of campus return Qaud 3
-	if Lat > CenterLat && Long > CenterLong {
-		return Q3
-	}
-	// if in the bottom left return Quad4
-	return Q4
-}
-
 func GetDistance(start, end int, distances []float64) float64 {
 	dist := 0.0
 	for start != end {

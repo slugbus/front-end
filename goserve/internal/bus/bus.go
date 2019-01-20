@@ -82,16 +82,19 @@ func updateDB() {
 
 // DRtoSRPP turns DummyResponse
 // into a SlugResponsePP
-func DRtoSRPP(dr database.DummyResponse) SlugResponsePP {
+func DRtoSRPP(dr database.DummyResponse) SlugResponsePlusPlus {
 	conversion := SlugResponsePlusPlus{}
 	for _, buses := range dr.Buses {
+		simpleConvertedBus := Data{
+			ID:   buses.ID,
+			Lat:  buses.Lat,
+			Lon:  buses.Lon,
+			Type: buses.Type,
+		}
 		convertedBus := DataPlusPlus{
 			Angle: buses.Angle,
-			ID:    buses.ID,
-			Lat:   buses.Lat,
-			Long:  buses.Lon,
+			Data:  simpleConvertedBus,
 			Speed: buses.Speed,
-			Type:  buses.Type,
 		}
 		conversion = append(conversion, convertedBus)
 	}

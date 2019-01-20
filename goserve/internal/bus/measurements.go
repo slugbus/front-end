@@ -1,10 +1,12 @@
 package bus
 
 import (
+	"busplusplus/internal/database"
 	"busplusplus/internal/geo"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 )
 
@@ -95,4 +97,24 @@ func GetBus() (*SlugResponse, error) {
 	}
 
 	return &jsonData, nil
+}
+
+func updateViaDummyBus() {
+	response, err := http.Get("http://35.184.180.21:8080/")
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	defer response.Body.Close()
+	data, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	dr := database.DummyResponse{}
+	if err := json.Unmarshal(data, &dr); err != nil {
+		log.Println(err)
+		return
+	}
+	CurrentBusState = DRtoSRPP(dr)
 }

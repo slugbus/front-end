@@ -19,7 +19,7 @@ type DummyResponse struct {
 		Angle float64 `json:"Angle"`
 		ID    string  `json:"ID"`
 		Lat   float64 `json:"Lat"`
-		Lon   int     `json:"Lon"`
+		Lon   float64 `json:"Lon"`
 		Speed float64 `json:"Speed"`
 		Type  string  `json:"Type"`
 	} `json:"buses"`

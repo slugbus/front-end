@@ -6,9 +6,11 @@ import (
 	"encoding/json"
 	"flag"
 	"log"
+	"math/rand"
 	"net/http"
 	"os"
 	"os/signal"
+	"strconv"
 	"time"
 
 	"github.com/gorilla/mux"
@@ -59,12 +61,48 @@ func giveData(w http.ResponseWriter, r *http.Request) {
 	w.Write(data)
 }
 
+type HeatData struct {
+	Timestamp int64 `json:"timestamp"`
+	ID        int   `json:"id"`
+	N         int   `json::"n"`
+}
+
+func sendBusiness(w http.ResponseWriter, r *http.Request) {
+
+	// For right now we'll just send some quick json
+	sample := rand.NormFloat64()*5 + 10
+
+	id := r.FormValue("id")
+
+	num, err := strconv.Atoi(id)
+
+	if err != nil {
+		num = 7
+	}
+
+	data := HeatData{
+		Timestamp: time.Now().Unix(),
+		ID:        num,
+		N:         int(sample),
+	}
+
+	rData, err := json.Marshal(data)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(rData)
+}
+
 func main() {
 	var wait time.Duration
 	flag.DurationVar(&wait, "graceful-timeout", time.Second*15, "the duration for which the server gracefully wait for existing connections to finish - e.g. 15s or 1m")
 	flag.Parse()
 
 	r := mux.NewRouter()
+	r.HandleFunc("/api/get_stops", sendBusiness).Methods("GET")
 	r.HandleFunc("/api/test_get", testGet).Methods("GET")
 	r.HandleFunc("/api/get_buses", giveData).Methods("GET")
 

@@ -11,42 +11,52 @@ import (
 // This var controls how frequently
 // we ping taps
 var deltaT = 3000
+var useDummy = true
 
 // CurrentBusState is the current
 // the state of the buses.
 var CurrentBusState SlugResponsePlusPlus
 
 func init() {
-	// Make an array of responses
-	arrOfBuses := []*SlugResponse{}
-	// Keep a count
-	count := 0
-	// Ping the server twice over the course of deltaT ms
-	for range time.Tick(time.Duration(deltaT) * time.Millisecond) {
-		if count == 2 {
-			break
+	if !useDummy {
+		// Make an array of responses
+		arrOfBuses := []*SlugResponse{}
+		// Keep a count
+		count := 0
+		// Ping the server twice over the course of deltaT ms
+		for range time.Tick(time.Duration(deltaT) * time.Millisecond) {
+			if count == 2 {
+				break
+			}
+			bus, err := GetBus()
+			if err != nil {
+				log.Printf("could not get bus info: %v\n", err)
+				return
+			}
+			arrOfBuses = append(arrOfBuses, bus)
+			count++
 		}
-		bus, err := GetBus()
-		if err != nil {
-			log.Printf("could not get bus info: %v\n", err)
+
+		// Check to see if we did get two pings
+		if len(arrOfBuses) != 2 {
+			log.Printf("wanted 2 data points got %d data points", len(arrOfBuses))
 			return
 		}
-		arrOfBuses = append(arrOfBuses, bus)
-		count++
-	}
+		// If we did get two pings merge these data points to prodcue more information
+		// from them.
+		CurrentBusState = mergeUpdate(arrOfBuses[0], arrOfBuses[1], float64(deltaT))
+		log.Printf("Started Initial state: %+v\n", CurrentBusState)
 
-	// Check to see if we did get two pings
-	if len(arrOfBuses) != 2 {
-		log.Printf("wanted 2 data points got %d data points", len(arrOfBuses))
-		return
+		// Start update the state asynchronously
+		go asyncUpdate()
 	}
-	// If we did get two pings merge these data points to prodcue more information
-	// from them.
-	CurrentBusState = mergeUpdate(arrOfBuses[0], arrOfBuses[1], float64(deltaT))
-	log.Printf("Started Initial state: %+v\n", CurrentBusState)
+	go asyncUpdateDummy()
+}
 
-	// Start update the state asynchronously
-	go asyncUpdate()
+func asyncUpdateDummy() {
+	for range time.Tick(time.Duration(deltaT) * time.Millisecond) {
+		updateViaDummyBus()
+	}
 }
 
 // Async update updates

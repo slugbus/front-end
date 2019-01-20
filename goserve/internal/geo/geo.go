@@ -4,6 +4,9 @@ import (
 	"math"
 )
 
+const CenterLat = 36.99250
+const CenterLong = -112.060569
+
 // Speed returns the speed of a bus in mph
 // where d is in miles and t is in milli
 func Speed(d float64, t float64) float64 {
@@ -48,15 +51,6 @@ func Dist(lat1, long1, lat2, long2 float64) float64 {
 	return miles
 }
 
-func GetDistance(start, end int, distances []float64) float64 {
-	dist := 0.0
-	for start != end {
-		dist += distances[start]
-		start += (1 + len(distances)) % len(distances)
-	}
-	return dist
-}
-
 func GetETA(distance float64, speed float64) float64 {
 	// get amount of time in hours
 	t := distance / speed
@@ -64,4 +58,22 @@ func GetETA(distance float64, speed float64) float64 {
 	t = t * 60 * 60
 
 	return t
+}
+
+// returns the quadrant of a given lat and long coordinate
+func MapQuad(Lat, Long float64) string {
+	// if in the upper left of campus return Quad 1
+	if Lat < CenterLat && Long < CenterLong {
+		return "Q1"
+	}
+	// if in the upper right of campus return Quad 2
+	if Lat > CenterLat && Long < CenterLong {
+		return "Q2"
+	}
+	// if in the bottom right of campus return Qaud 3
+	if Lat > CenterLat && Long > CenterLong {
+		return "Q3"
+	}
+	// if in the bottom left return Quad4
+	return "Q4"
 }

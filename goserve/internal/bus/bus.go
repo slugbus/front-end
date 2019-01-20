@@ -12,6 +12,10 @@ import (
 // we ping taps
 var deltaT = 3000
 
+// CurrentBusState is the current
+// the state of the buses.
+var CurrentBusState SlugResponsePlusPlus
+
 // TODO: REFACTOR
 func init() {
 

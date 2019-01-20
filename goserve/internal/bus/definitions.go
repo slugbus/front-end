@@ -1,9 +1,5 @@
 package bus
 
-// CurrentBusState is the current
-// the state of the buses.
-var CurrentBusState SlugResponsePlusPlus
-
 // Data is a structure that
 // contains the json response
 // from the ucsc taps server.

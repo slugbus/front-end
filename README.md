@@ -1,3 +1,10 @@
+## Bus++
+
+A bus tracking app developed by Jorge Henriquez, John Hanly, Justyn Duthler, Justyn Duthler, Jeremy Diamzon, and Case Delst.
+Majority coded in the 2019 CruzHacks hackathon.
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

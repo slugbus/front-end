@@ -24,7 +24,6 @@ var WebFont = require('webfontloader')
 
 class stopModal extends React.Component {
 
-
     constructor(props) {
         super(props);
         this.state = {
@@ -74,34 +73,34 @@ class stopModal extends React.Component {
             }
         });
         return (
-            <div >
+            <div>
                 <div className="col">
-                    <div style={{marginLeft:-15,marginRight:-15}}>
+                    <div style={{ marginLeft: -15, marginRight: -15 }}>
                         <img style={{ width: '100vh', height: "100" }} alt={this.props.selectedStop.name + " photo"} src={this.returnURL(this.props.selectedStop.name)}></img>
-
-                    </div>
-
-
-                    <div style={{ fontSize: '25px', fontStyle: 'italic', width: '100%', backgroundColor: "grey" }}></div>
-                    <div className="border row align-items-center justify-content-between ">
-                        <p className=""style={{ fontSize: '25px', fontStyle: 'bold', marginTop: '10px' }}>{this.props.selectedStop.name + " Bus Stop"}</p>
-                        <img className="" style={{height:'25%',width:'25%'}}src={taps}></img>
-                    </div>
-                    <div className="row">
-                        <div className="col-sm border">
-                            <p style={{ fontSize: '15px' }}>Activity of Bus Stop: </p>
+                        <div className="row">
+                            <div style={{ background: 'rgba(0,0,0,0.7)', top: '8px', left: '16px', position: 'absolute', borderRadius: 7 }}>
+                                <p className="" style={{ color: 'white', fontSize: '32px', fontStyle: 'bold', marginTop: '10px' }}>{this.props.selectedStop.name + " Bus Stop"}</p>
+                            </div>
+                            <img style={{ height: '12%', width: '22%', position: 'absolute', top: '8px', right: '16px', borderRadius: 7, opacity: .8 }} src={taps} alt="TAPS LOGO"></img>
                         </div>
-                        <div className="col-sm border">
-                            <p style={{ fontSize: '15px' }}> Next Bus ETA:</p></div>
-
                     </div>
+                    <div style={{ fontSize: '25px', fontStyle: 'italic', width: '100%', backgroundColor: "grey" }}></div>
+                    <div className="row">
 
-
-                    <div style={{}} className="row">
+                        <div className="col-sm" style={{ border: '1px solid grey' }}>
+                            <p style={{ fontSize: '15px' }}>Activity of Bus Stop: </p>
+                            <p style={{ fontSize: '15px', fontWeight: 'bold', color: 'red' }}><span>Busy (15-20 people)</span></p>
+                        </div>
+                        <div className="col-sm" style={{ border: '1px solid grey' }}>
+                            <p style={{ fontSize: '15px', fontStyle: 'italic' }}> Next Bus ETA:</p>
+                            <p style={{ fontSize: '15px', fontWeight: 'bold' }}> 15 Minutes</p>
+                        </div>
+                    </div>
+                    <div style={{ flex: '1', height: 35 }} className="row">
                         <button
-                            onClick = {this.props.closeStopModal.bind(this)}
-                        className="btn btn-danger btn-large btn-block">Close</button>
-
+                            style={{ alignSelf: 'stretch', fontSize: 15 }}
+                            onClick={this.props.closeStopModal.bind(this)}
+                            className="btn btn-danger btn-large btn-block">Close</button>
                     </div>
                 </div>
 

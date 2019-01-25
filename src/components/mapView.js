@@ -181,7 +181,6 @@ export class MapView extends React.Component {
                             ${x.pic}`}
                             position={{ lat: x.lat, lng: x.lng }}
                         >
-
                         </Marker>
 
                     )

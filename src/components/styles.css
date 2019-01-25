@@ -24,8 +24,9 @@
      height:45%;
  }
  .border{
-    border: 5px solid black;
+    border: 20px solid black;
   }
+  
   #wrapper{
       position: relative;
       

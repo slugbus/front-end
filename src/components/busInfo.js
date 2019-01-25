@@ -3,8 +3,6 @@ import { innerdata } from '../busData/inner'
 import { outerdata } from '../busData/outer'
 
 
-
-
 class BusInfo extends React.Component {
 
     constructor(props) {

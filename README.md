@@ -1,6 +1,6 @@
 ## Bus++
 
-A bus tracking app developed by Jorge Henriquez, John Hanly, Justyn Duthler, Justyn Duthler, Jeremy Diamzon, and Case Delst.
+A bus tracking app developed by Jorge Henriquez, John Hanly, Justyn Duthler, Jeremy Diamzon, and Case Delst.
 Majority coded in the 2019 CruzHacks hackathon.
 
 

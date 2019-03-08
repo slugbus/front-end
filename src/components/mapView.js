@@ -5,6 +5,7 @@ import { outerdata } from '../busData/outer'
 import Modal from 'react-modal';
 import StopModal from './stopModal';
 import BusModal from './busModal'
+import Legend from './legend'
 import axios from 'axios'
 
 const customStyles = {
@@ -41,7 +42,6 @@ export class MapView extends React.Component {
             center: {
                 lat: 36.990790,
                 lng: -122.058555,
-
             },
             zoom: 15,
             toolTipActive: false,
@@ -81,7 +81,6 @@ export class MapView extends React.Component {
         console.log("DGSG", marker)
 
         if (marker.type === "LOOP") {
-            console.log("Fuck")
 
             axios.get(`http://35.233.194.110:8080/api/calc_eta`)
                 .then(res => {
@@ -112,10 +111,6 @@ export class MapView extends React.Component {
 
 
     }
-
-
-
-
 
     closeStopModal() {
         this.setState({
@@ -153,7 +148,6 @@ export class MapView extends React.Component {
                         lng: -122.058555
                     }}
                 >
-
                     {innerdata.map((x, index) =>
 
                         <Marker
@@ -201,18 +195,28 @@ export class MapView extends React.Component {
 
                 </Map>
 
-                <div style={{ flex: 1, justifyContent: 'center' }} className="row ">
-                    <div className="col-xs-2" style={{ background: 'rgba(255,255,255,0.8)', padding: '-50px', borderRadius: '20px' }}>
-                        <img className="" style={{ padding: 10, width: 140, height: 55, }} borderWidth={3} alt="bus++" src={logo}></img>
+                <div className="container" style={{ flex: 1, justifyContent: 'center' }}>
+                    <div className="row" style={{ justifyContent: 'center' }}>
+                        <div className="col-xs-2" style={{ background: 'rgba(255,255,255,0.8)', padding: '-50px', borderRadius: '20px',borderWidth:.5,borderColor:'black', borderStyle:'solid'}}>
+                            <img className="" style={{ padding: 10, width: 140, height: 55}}  alt="bus++" src={logo}></img>
+                        </div>
+                    </div>
+                    <div style={{ marginTop: 500, marginLeft:-100 }}>
+                        <div className="col" style={{ alignContent: 'flex-end', justifyContent: 'flex-start' }} >
+                            <div className="col-md-2" style={{ padding: '20', position: 'relative' }}>
+                                <Legend />
+                            </div>
+                        </div>
                     </div>
 
                 </div>
+
+
                 <Modal
                     isOpen={this.state.stopDetailsVisible}
                     style={customStyles}
                     shouldCloseOnOverlayClick={true}
-                    onRequestClose={this.closeStopModal.bind(this)}
-                >
+                    onRequestClose={this.closeStopModal.bind(this)}>
                     <StopModal closeStopModal={this.closeStopModal.bind(this)} selectedStop={this.state.selectedStop} />
 
                 </Modal>
@@ -221,8 +225,7 @@ export class MapView extends React.Component {
                     isOpen={this.state.busDetailsVisible}
                     style={customStyles}
                     shouldCloseOnOverlayClick={true}
-                    onRequestClose={this.closeBusModal.bind(this)}
-                >
+                    onRequestClose={this.closeBusModal.bind(this)}>
                     <BusModal eta={this.state.eta} closeBusModal={this.closeBusModal.bind(this)} selectedStop={this.state.selectedBus} />
 
                 </Modal>

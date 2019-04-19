@@ -1,5 +1,5 @@
 import React from 'react';
-import '../index.css'
+const People = require('./assets/busStopPics/people.png')
 const Barn = require('./assets/busStopPics/Barn.jpg');
 const Arboretum = require('./assets/busStopPics/Arboretum.jpg')
 const Bookstore = require('./assets/busStopPics/Bookstore.jpg')
@@ -20,7 +20,7 @@ const Science_Hill = require('./assets/busStopPics/Science_Hill.jpg')
 const West_Remote = require('./assets/busStopPics/West_Remote.jpg')
 const Crown = require('./assets/busStopPics/Crown.jpg')
 const taps = require('./assets/busStopPics/TAPS.jpg')
-var WebFont = require('webfontloader')
+
 
 class stopModal extends React.Component {
 
@@ -29,9 +29,9 @@ class stopModal extends React.Component {
         this.state = {
 
         }
+        this.returnURL = this.returnURL.bind(this)
     }
     returnURL(stopName) {
-        console.log("HEERERERERE", this)
         switch (stopName) {
             case "McLaughlin & Science Hill": return Science_Hill;
             case "Heller & Kerr Hall": return Kerr;
@@ -67,45 +67,66 @@ class stopModal extends React.Component {
 
 
     render() {
-        WebFont.load({
-            google: {
-                families: ['Oswald', 'sans-serif']
-            }
-        });
-        return (
-            <div>
-                <div className="col">
-                    <div style={{ marginLeft: -15, marginRight: -15 }}>
-                        <img style={{ width: '100vh', height: "100" }} alt={this.props.selectedStop.name + " photo"} src={this.returnURL(this.props.selectedStop.name)}></img>
-                        <div className="row">
-                            <div style={{ background: 'rgba(0,0,0,0.7)', top: '8px', left: '16px', position: 'absolute', borderRadius: 7 }}>
-                                <p className="" style={{ color: 'white', fontSize: '32px', fontStyle: 'bold', marginTop: '10px' }}>{this.props.selectedStop.name + " Bus Stop"}</p>
-                            </div>
-                            <img style={{ height: '12%', width: '22%', position: 'absolute', top: '8px', right: '16px',borderRadius:7 ,opacity:.8}} src={taps} alt="TAPS LOGO"></img>
-                        </div>
-                    </div>
-                    <div style={{ fontSize: '25px', fontStyle: 'italic', width: '100%', backgroundColor: "grey" }}></div>
-                    <div className="row">
 
-                        <div className="col-sm" style={{ border: '1px solid grey' }}>
-                            <p style={{ fontSize: '15px' }}>Activity of Bus Stop: </p>
-                            <p style={{ fontSize: '15px', fontWeight: 'bold', color: 'red' }}><span>Busy (15-20 people)</span></p>
+        return (
+            <div className="container" >
+
+                <div className="row">
+                    <img style={{ width: '100%', height: "50vh" }} alt={this.props.selectedStop.name + " photo"} src={this.returnURL(this.props.selectedStop.name)}></img>
+                </div>
+
+                <div className="row">
+
+                    <div className="col">
+                        <div className="stopNameContainer">
+                            <p className="stopNameText">{this.props.selectedStop.name} {this.props.selectedStop.direction}</p>
                         </div>
-                        <div className="col-sm" style={{ border: '1px solid grey' }}>
-                            <p style={{ fontSize: '15px', fontStyle: 'italic' }}> Next Bus ETA:</p>
-                            <p style={{ fontSize: '15px', fontWeight: 'bold' }}> 15 Minutes</p>
-                        </div>
-                    </div>
-                    <div style={{ flex: '1', height: 35 }} className="row">
-                        <button
-                            style={{ alignSelf: 'stretch', fontSize: 15 }}
-                            onClick={this.props.closeStopModal.bind(this)}
-                            className="btn btn-danger btn-large btn-block">Close</button>
+                        <img className="tapsLogo" src={taps} alt="TAPS LOGO"></img>
+
                     </div>
                 </div>
 
+                <hr></hr>
+                <div className="row" >
 
-            </div>
+                    <div className="col-md-6 rightBorder">
+                        <p className="activityText" style={{fontWeight:'bold'}}>Activity of Bus Stop: </p>
+                    </div>
+
+                    <div className="col-md-6" >
+                        <div className="row">
+                            <div className="col-md-8">
+                                <p className="busyText">Currently <span>Busy (15-20 people)</span></p>
+                            </div>
+                            <div className="col-md-4">
+                                <img className="peopleIcon" src={People} alt="people icon"></img>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <hr></hr>
+
+                <div className="row" style={{ paddingBottom: "10px" }}>
+
+                    <div className="col-md-6 rightBorder" >
+                        <div style={{ marginLeft: '2%' }}>
+                            <p className="activityText" style={{fontWeight:'bold'}}> Next Bus ETA:</p>
+                        </div>
+
+                    </div>
+                    <div className="col-md-6" style={{}}>
+                        <div style={{ marginLeft: '2%', }}>
+                            <p className="etaText"> 15 Minutes</p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div >
+
 
         )
     }

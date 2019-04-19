@@ -1,5 +1,6 @@
 import React from 'react';
-import '../index.css'
+const taps = require('./assets/busStopPics/TAPS.jpg')
+
 
 
 class BusModal extends React.Component {
@@ -10,46 +11,57 @@ class BusModal extends React.Component {
         this.state = {
 
         }
-    }
-    returnURL(stopName) {
-        console.log("HEERERERERE", this)
+
 
     }
 
 
-
+    componentDidMount() {
+        console.log("HEERERERERE", this.props)
+    }
 
     render() {
 
         return (
-            <div >
-                <div className="col">
+            <div className="container"  >
+                <div className="row bottomBorder">
+                    <div className="col-md-4">
+                        <div>
+                            <p className="busType">{this.props.selectedStop.type.charAt(0).toUpperCase() + this.props.selectedStop.type.slice(1).toLowerCase()} Bus</p>
 
-
-
-                    <div style={{ fontSize: '25px', fontStyle: 'italic', width: '100%', backgroundColor: "grey" }}></div>
-                    <div className="border row align-items-center justify-content-between ">
-                        <p className="" style={{ fontSize: '25px', fontStyle: 'bold', marginTop: '10px' }}># {this.props.selectedStop.id}</p>
+                        </div>
                     </div>
-                    <div className="row">
-                        <div style={{fontSize:'20px'}} className="col">ETA:</div>
-                        <div style={{fontSize:'20px'}} className="col">{this.props.eta}min</div>
-                        
+                    <div className="col-md-4" >
 
+                        <p className="busID">#{this.props.selectedStop.id}</p>
+                    </div>
+                    <div className="col-md-4" >
+
+                        <img className="busTapsLogo" src={taps} alt="TAPS LOGO"></img>
                     </div>
 
+                </div>
+                <div className="row busEtaContainer" >
+                    <div className="col-md-6 grooveRight">
+                        <p className="etaTextBold">Estimated Time of Arrival:</p>
+                    </div>
 
-                    <div style={{}} className="row">
-                        <button
-                        onClick={this.props.closeBusModal.bind(this)}
-                            className="btn btn-danger btn-large btn-block">Close</button>
-
+                    <div className="col-md-6">
+                        <p className="etaText">15 min</p>
                     </div>
                 </div>
 
+                <div className="row busEtaContainer" >
+                    <div className="col-md-6 grooveRight">
+                        <p className="etaTextBold">Next Stop:</p>
+                    </div>
 
-            </div>
+                    <div className="col-md-6">
+                    <p className="etaText">Porter/Kresge Inner Bus Stop</p>
+                    </div>
+                </div>
 
+            </div >
         )
     }
 }

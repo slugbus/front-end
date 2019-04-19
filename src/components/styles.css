@@ -7,45 +7,54 @@
     box-sizing: border-box;
   }
   
- 
-
   #app{
     height:100%
   }
 
-.modalHead{
-    flex: 1;
-    justifyContent: 'center';
-    alignItems: 'center';
-    alignContent: 'center';
- }
- .busPhoto{
-     width:45%;
-     height:45%;
- }
- .border{
-    border: 20px solid black;
-  }
-  
-  #wrapper{
-      position: relative;
-      
-  }
-  #over_map{
-    position: absolute; 
-    background-color: transparent;
-     top: 10px;
-     left: 10px; 
-     z-index: 99; 
-     background: white;
-  }
-.floating-panel {
+  #floating-panel {
     position: absolute;
-    padding: 50px;
-    top: 100px;
-    left: 100px;
-    background: white;
+    top: 0px;
+    left: 50%;
+    z-index: 5;
+    background-color:rgba(255, 255, 255, .85);
+    padding: 2px;
+    border: 1px solid #999;
+    border-radius: 25px;
+    text-align: center;
+    font-family: 'Roboto','sans-serif';
+    line-height: 30px;
+    padding-left: 10px;
+  }
+  #floating-legend-panel {
+    position: absolute;
+    top: 60%;
+    left: 13%;
+    z-index: 1;
+    border: 1px solid #999;
+    background-color:rgba(255, 255, 255, .70);
+    border-radius: 25px;
+    text-align: center;
+    padding:3%;
+    padding-bottom: 1%;
+    padding-top: 1%;
    
+  }
+  #appLogo{
+    padding: 10;
+     
+  }
+  .modalContainer{
+   
+    right: auto;
+    bottom: auto;
+    padding: 10;
+    transform: translate(-50%, -50%);
+    display: block;
+  }
+  #legendContainer{
+    border: ".5px solid black ";
+    border-radius: 25;padding: 50;
+     background-color:rgba(255, 255, 255, .85)
   }
   #map{
       position: absolute;
@@ -53,16 +62,114 @@
       width: 100%;
   height: 100%;
   }
-  .col-6-md {
-    background: lightblue;
-    height: 200px;
-    display: flex;
-  }
-  .bottom {
- 
-  }
-
   
+.stopNameContainer{
+  background: rgba(0,0,0,0.7);
+  top: 8px;
+  left: 16px;
+  position: absolute;
+  border-radius: 7px;
+}
 
+.stopNameContainer{
+  color: white;
+  font-size: 32px;
+  font-style: bold;
+   padding-right: 10px;
+   padding-left: 10px;
+   font-family: 'Pacifico'
 
+}
+.tapsLogo{
+height: 10%;
+ width: 22%;
+ position: absolute;
+ top: 8px;
+ right: 16px;
+ border-radius: 7;
+ opacity: .8;
+}
+.rightBorder{
+  border-right-color:#e2e2e2;
+   border-right-width: 1px;
+   border-right-style: solid ;
+}
 
+.activityText{
+  font-size: 25px;
+  text-align: center;
+  font-family: Oswald;
+}
+.busyText{
+  font-size: 25px;
+  font-style: italic;
+  color: red;
+  font-family: Oswald
+}
+.peopleIcon{
+  width: 40px;
+  height: 40px;
+  font-weight: bold
+}
+.etaText{
+  font-size: 25px;
+   font-style: italic;
+    font-family: Oswald;
+  text-align: center;
+} 
+.etaTextBold{
+  font-size: 25px; 
+  font-weight: bold;
+   text-align: center;
+    font-family: Oswald; 
+}
+.bottomBorder{
+  background-color: #FFEB3B;
+  border-bottom-color: #e2e2e2;
+  border-bottom-width: 1.5px;
+  border-bottom-style: solid;
+  padding: 1%
+}
+.busEtaContainer{
+  border-bottom-color: #e2e2e2;
+  border-bottom-width: 1.5px;
+  border-bottom-style: solid;
+  padding: 1%
+}
+.busType{
+  color: black;
+  font-size: 29px; 
+  font-style: bold;
+   font-family: 'Pacifico'; 
+   text-align: center;
+ margin-top: 2%
+}
+
+.busID{
+color: black;
+font-size: 31px;
+font-style: bold;
+font-family: Pacifico;
+text-align: center;
+margin-top: 2%
+}
+.busTapsLogo{
+height: 60%;
+width: 60%;
+border-radius: 7;
+opacity: .8;
+display: block;
+margin-left: auto;
+margin-right: auto
+}
+.grooveRight{
+  border-right-color: #e2e2e2;
+   border-right-width: 1px;
+    border-right-style: groove
+}
+
+.legendText{
+  font-size: 20px;
+   margin-top:6px;
+   font-family: Abel;
+}

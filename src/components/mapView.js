@@ -1,103 +1,172 @@
-import React from 'react';
-import { GoogleApiWrapper, Map, Marker } from 'google-maps-react'
-import { innerdata } from '../busData/inner'
-import { outerdata } from '../busData/outer'
-import Modal from 'react-modal';
-import StopModal from './stopModal';
+import React from "react";
+import axios from 'axios'
+import Modal from 'react-modal'
+import StopModal from './stopModal'
 import BusModal from './busModal'
 import Legend from './legend'
-import axios from 'axios'
-
-const customStyles = {
-    content: {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        padding: '10',
-        transform: 'translate(-50%, -50%)',
-        display: 'block'
-    }
-};
-
-const Slug_Bus = { url: require('./assets/mapIcons/Slug_Bus.png'), scaledSize: { width: 80, height: 40 } };
+import { withGoogleMap, GoogleMap, Marker, withScriptjs } from "react-google-maps";
+const Slug_Bus = { url: require('./assets/mapIcons/Slug_Bus_Vert.png'), scaledSize: { width: 40, height: 60 } };
 const Slug_Bus_Vert = { url: require('./assets/mapIcons/Slug_Bus_Vert.png'), scaledSize: { width: 40, height: 80 } };
 const Slug_Bus_180 = { url: require('./assets/mapIcons/Slug_Bus_180.png'), scaledSize: { width: 40, height: 80 } };
-const Slug_Bus_45 = { url: require('./assets/mapIcons/Slug_Bus_45.png'), scaledSize: { width: 75, height: 90 } };
-const Slug_Bus_DR = { url: require('./assets/mapIcons/Slug_Bus_DR.png'), scaledSize: { width: 75, height: 90 } };
-const Slug_Bus_DL = { url: require('./assets/mapIcons/Slug_Bus_DL.png'), scaledSize: { width: 75, height: 90 } };
-const Slug_Bus_TR = { url: require('./assets/mapIcons/Slug_Bus_TR.png'), scaledSize: { width: 5, height: 90 } };
-const Slug_Bus_90 = { url: require('./assets/mapIcons/Slug_Bus_90.png'), scaledSize: { width: 150, height: 90 } };
-
+const Slug_Bus_45 = { url: require('./assets/mapIcons/Slug_Bus_45.png'), scaledSize: { width: 70, height: 70 } };
+const Slug_Bus_DR = { url: require('./assets/mapIcons/Slug_Bus_DR.png'), scaledSize: { width: 70, height: 80 } };
+const Slug_Bus_DL = { url: require('./assets/mapIcons/Slug_Bus_DL.png'), scaledSize: { width: 70, height: 80 } };
+const Slug_Bus_90 = { url: require('./assets/mapIcons/Slug_Bus_90.png'), scaledSize: { width: 140, height:  80 } };
+const Slug_Bus_TR = { url: require('./assets/mapIcons/Slug_Bus_TR.png'), scaledSize: { width: 70, height: 80 } };
 const logo = require('./assets/mapIcons/Logo_2.png')
-const BlueIcon = { url: require('./assets/mapIcons/Blue_Stop.png'), scaledSize: { width: 25, height: 32 } };
-const RedIcon = { url: require('./assets/mapIcons/Red_Stop.png'), scaledSize: { width: 25, height: 32 } }
 
 
-export class MapView extends React.Component {
-
+class MapWithMarker extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            center: {
-                lat: 36.990790,
-                lng: -122.058555,
-            },
-            zoom: 15,
-            toolTipActive: false,
-            showingInfoWindow: false,
-            activeMarker: {},
-            markerObjects: [],
-            selectedStop: {},
-            selectedBus: {},
-            selectedStopURL: "",
-            stopDetailsVisible: false,
+            markers: this.props.markers,
+            busArray: [],
+            responseSize: 0,
+            initBusMarkers: false,
+            eta: 0,
             busDetailsVisible: false,
-            eta: ""
+            stopDetailsVisible: false,
+            selectedStop: {}
+        };
 
-        }
+        this.changeBusMarker = this.changeBusMarker.bind(this)
     }
 
-    updateBusImage(angle) {
+    componentDidMount() {
+        this.addMarker();
+        this.intervalId = setInterval(this.addMarker.bind(this), 1000);
 
-        console.log(angle)
-        switch (angle) {
-            case (angle < 45): return { icon: Slug_Bus_Vert }
-            case (angle >= 45 && angle < 90): return { icon: Slug_Bus_TR }
-            case (angle >= 90 && angle < 135): return { icon: Slug_Bus }
-            case (angle >= 135 && angle < 180): return { icon: Slug_Bus_DR }
-            case (angle >= 180 && angle < 225): return { icon: Slug_Bus_180 }
-            case (angle >= 225 && angle < 270): return { icon: Slug_Bus_DL }
-            case (angle >= 270 && angle < 315): return { icon: Slug_Bus_90 }
-            case (angle >= 315 && angle < 360): return { icon: Slug_Bus_45 }
-            default: return { icon: Slug_Bus_Vert }
+    }
+    componentWillUnmount() {
+        clearInterval(this.intervalId);
+    }
+
+    changeBusMarker = (angle) => {
+
+    
+        if (angle <= 45) {
+            return Slug_Bus_TR
+        } if (angle <= 90) {
+            return Slug_Bus
+        } if (angle <= 135) {
+            return Slug_Bus_DR
+        } if (angle <= 180) {
+            return Slug_Bus_180
+        } if (angle <= 225) {
+            return Slug_Bus_DL
+        } if (angle <= 270) {
+            return Slug_Bus_90
+        } if (angle <= 345) {
+            return Slug_Bus_45
+        } else {
+            return Slug_Bus_Vert
         }
 
 
     }
 
+    async addMarker() {
+        let busArray = []
+        axios.get("http://localhost:8080/location/get")
+            .then(
+                (response) => {
+                    this.setState({
+                        busArray: [...response.data]
+                    })
+                }
+            )
+
+        await this.state.busArray.map(bus => {
+            return busArray.push(
+                { ...bus, angle: Math.floor(Math.random() * 360) + 1 }
+            )
+
+        })
+
+
+
+        this.setState({
+            busArray: [...busArray]
+        })
+
+        if (this.state.busArray.length > 0) {
+            let markers = [...this.state.markers];
+            let updatedBusMarkers = []
+
+            this.state.busArray.map(x => {
+                return updatedBusMarkers.push({
+                    ...x,
+                    icon: this.changeBusMarker(x.angle)
+                })
+            })
+
+
+            if (!this.state.initBusMarkers) {
+
+                let addedBuses = markers.concat(updatedBusMarkers)
+
+                this.setState({
+                    markers: [...addedBuses],
+                    responseSize: this.state.busArray.length,
+                    initBusMarkers: true
+                })
+
+
+            } else {
+
+
+                if (this.state.responseSize > 0) {
+
+                    let deleteVal = this.state.markers.length - this.state.responseSize;
+
+
+                    markers.splice(deleteVal, this.state.responseSize)
+                    let returnVal = markers.concat(updatedBusMarkers)
+
+                    this.setState(prevState => ({
+                        markers: [...returnVal],
+                        responseSize: updatedBusMarkers.length
+                    }));
+
+                }
+
+            }
+
+        }
+
+    }
+
+
+    closeStopModal() {
+        this.setState({
+            stopDetailsVisible: false
+        })
+    }
+    closeBusModal() {
+        this.setState({
+            busDetailsVisible: false
+        })
+    }
     async onMarkerClick(marker) {
 
         console.log("DGSG", marker)
 
-        if (marker.type === "LOOP") {
+        if (marker.type != null) {
 
-            axios.get(`http://35.233.194.110:8080/api/calc_eta`)
-                .then(res => {
-                    console.log("ETA", res.data);
+            // axios.get(`http://35.233.194.110:8080/api/calc_eta`)
+            //     .then(res => {
+            // console.log("ETA", res.data);
 
+            // var minutes = Math.floor(res.data.secs / 60);
+            this.setState({
+                selectedBus: marker,
+                busDetailsVisible: true,
+                eta: 5
 
-                    var minutes = Math.floor(res.data.secs / 60);
+            })
 
-
-                    this.setState({
-                        selectedBus: marker,
-                        busDetailsVisible: true,
-                        eta: minutes
-
-                    })
-
-                })
+            // })
 
         } else {
 
@@ -112,131 +181,84 @@ export class MapView extends React.Component {
 
     }
 
-    closeStopModal() {
-        this.setState({
-            stopDetailsVisible: false
-        })
-    }
-    closeBusModal() {
-        this.setState({
-            busDetailsVisible: false
-        })
-    }
 
-    onMapClicked() {
-        console.log("MAP CLICKED");
-
-        this.setState({
-            showingInfoWindow: false
-        })
-    }
-
-
-    onRequestClose = () => {
-        console.log("closed")
-    }
     render() {
         return (
-            <div >
-                <Map
-                    id="map"
-                    google={this.props.google}
-                    zoom={15.1}
-                    onClick={this.onMapClicked.bind(this)}
-                    initialCenter={{
-                        lat: 36.990,
-                        lng: -122.058555
-                    }}
-                >
-                    {innerdata.map((x, index) =>
+            <div className="container">
 
-                        <Marker
-                            options={{ icon: BlueIcon }}
-                            title={`${x.name}
-                                     ${x.lat}
-                                     ${x.uid}
-                                     ${x.pic}`}
-                            key={x.uid}
-                            position={{ lat: x.lat, lng: x.lng }}
-                            onClick={this.onMarkerClick.bind(this, x)}
-                        >
-                        </Marker>
-                    )
-                    }
-                    {outerdata.map((x, index) =>
-                        <Marker
-                            options={{ icon: RedIcon }}
-                            onClick={this.onMarkerClick.bind(this, x)}
-                            key={x.uid}
-                            title={`
-                            ${x.name}
-                            ${x.lat}
-                            ${x.uid}
-                            ${x.pic}`}
-                            position={{ lat: x.lat, lng: x.lng }}
-                        >
-                        </Marker>
-
-                    )
-                    }
-                    {this.props.busArray.map((x, index) =>
-                        <Marker
-                            onClick={this.onMarkerClick.bind(this, x)}
-                            options={{ icon: Slug_Bus }}
-                            key={x.ID}
-                            title={`
-                            ${x.id}
-                            ${x.lat}
-                            ${x.lng}
-                            ${x.speed}`}
-                            position={{ lat: x.lat, lng: x.lng }}>
-                        </Marker>
-                    )}
-
-                </Map>
-
-                <div className="container" style={{ flex: 1, justifyContent: 'center' }}>
-                    <div className="row" style={{ justifyContent: 'center' }}>
-                        <div className="col-xs-2" style={{ background: 'rgba(255,255,255,0.8)', padding: '-50px', borderRadius: '20px',borderWidth:.5,borderColor:'black', borderStyle:'solid'}}>
-                            <img className="" style={{ padding: 10, width: 140, height: 55}}  alt="bus++" src={logo}></img>
-                        </div>
-                    </div>
-                    <div style={{ marginTop: 500, marginLeft:-100 }}>
-                        <div className="col" style={{ alignContent: 'flex-end', justifyContent: 'flex-start' }} >
-                            <div className="col-md-2" style={{ padding: '20', position: 'relative' }}>
-                                <Legend />
-                            </div>
-                        </div>
-                    </div>
+                <div id="floating-panel">
+                    <img style={{ padding: 10, width: 140, height: 55 }} alt="bus++" src={logo}></img>
 
                 </div>
+                {this.state.busDetailsVisible || this.state.stopDetailsVisible ?
+                    null :
+                    <div id="floating-legend-panel">
+                        <Legend />
+                    </div>
+                }
+
+                <GoogleMap defaultZoom={this.props.zoom} defaultCenter={this.props.center} defaultOptions={{ scrollwheel: false, gestureHandling: 'none' }}>
+
+
+                    <div>
+                        {this.state.markers.map((marker =>
+                            <Marker
+
+                                onClick={this.onMarkerClick.bind(this, marker)}
+                                icon={marker.icon} key={marker.id} position={{ lat: marker.lat, lng: marker.lon }}
+                                name={`${marker.name}${marker.lat} ${marker.uid}${marker.pic}`} />
+                        ))
+                        }
+                    </div>
+                </GoogleMap>
 
 
                 <Modal
                     isOpen={this.state.stopDetailsVisible}
-                    style={customStyles}
                     shouldCloseOnOverlayClick={true}
-                    onRequestClose={this.closeStopModal.bind(this)}>
+                    onRequestClose={this.closeStopModal.bind(this)}
+                    style={{
+                        content: {
+                            top: '50%',
+                            left: '50%',
+                            right: 'auto',
+                            bottom: 'auto',
+                            padding: '10',
+                            transform: 'translate(-50%, -50%)',
+                            display: 'block'
+                        }
+                    }}>
                     <StopModal closeStopModal={this.closeStopModal.bind(this)} selectedStop={this.state.selectedStop} />
 
                 </Modal>
 
                 <Modal
                     isOpen={this.state.busDetailsVisible}
-                    style={customStyles}
                     shouldCloseOnOverlayClick={true}
-                    onRequestClose={this.closeBusModal.bind(this)}>
+                    onRequestClose={this.closeBusModal.bind(this)}
+                    style={{
+                        content: {
+                            top: '50%',
+                            left: '50%',
+                            right: 'auto',
+                            bottom: 'auto',
+                            padding: '10',
+                            transform: 'translate(-50%, -50%)',
+                            display: 'block'
+                        }
+                    }}
+                >
                     <BusModal eta={this.state.eta} closeBusModal={this.closeBusModal.bind(this)} selectedStop={this.state.selectedBus} />
 
                 </Modal>
 
+
             </div>
-        )
+
+        );
+
+
     }
 }
-
-export default GoogleApiWrapper({
-    apiKey: ("AIzaSyCVBkdLAA2jhdd9iCuPyPL4dD9xpRD32AQ")
-})(MapView);
-
+export default withScriptjs(withGoogleMap(MapWithMarker));
 

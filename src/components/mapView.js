@@ -66,6 +66,7 @@ class MapWithMarker extends React.Component {
     }
 
     async addMarker() {
+        
         let busArray = []
         axios.get("http://localhost:8080/location/get")
             .then(

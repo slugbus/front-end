@@ -6,11 +6,16 @@ import "./components/styles.css";
 
 import MapView from "./components/mapView";
 
+const GMAPS = "https://maps.googleapis.com/maps/api/js?key="+process.env.REACT_APP_API_KEY
+console.log("AAG", GMAPS)
+
+
+
 
 const App = () => {
     return (
         <MapView
-            googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVBkdLAA2jhdd9iCuPyPL4dD9xpRD32AQ"
+            googleMapURL={GMAPS.toString()}
             loadingElement={<div style={{ height: `100%` }} />}
             containerElement={<div style={{ height: "100vh" }} />}
             mapElement={<div style={{ height: `100%` }} />}

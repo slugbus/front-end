@@ -88,7 +88,6 @@ class stopModal extends React.Component {
 
                 <hr></hr>
                 <div className="row" >
-
                     <div className="col-md-6 rightBorder">
                         <p className="activityText" style={{fontWeight:'bold'}}>Activity of Bus Stop: </p>
                     </div>

@@ -43,8 +43,7 @@ class MapWithMarker extends React.Component {
     }
 
     changeBusMarker = (angle) => {
-
-    
+ 
         if (angle <= 45) {
             return Slug_Bus_TR
         } if (angle <= 90) {
@@ -83,8 +82,6 @@ class MapWithMarker extends React.Component {
             )
 
         })
-
-
 
         this.setState({
             busArray: [...busArray]
@@ -180,7 +177,6 @@ class MapWithMarker extends React.Component {
 
 
     }
-
 
     render() {
         return (

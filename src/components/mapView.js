@@ -16,7 +16,7 @@ const Slug_Bus_TR = { url: require('./assets/mapIcons/Slug_Bus_TR.png'), scaledS
 const logo = require('./assets/mapIcons/Logo_2.png')
 
 
-class MapWithMarker extends React.Component {
+class MapView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -260,5 +260,5 @@ class MapWithMarker extends React.Component {
 
     }
 }
-export default withScriptjs(withGoogleMap(MapWithMarker));
+export default withScriptjs(withGoogleMap(MapView));
 

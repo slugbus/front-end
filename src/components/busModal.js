@@ -2,7 +2,6 @@ import React from 'react';
 const taps = require('./assets/busStopPics/TAPS.jpg')
 
 
-
 class BusModal extends React.Component {
 
 
@@ -15,9 +14,7 @@ class BusModal extends React.Component {
 
     }
 
-
     componentDidMount() {
-        console.log("HEERERERERE", this.props)
     }
 
     render() {
@@ -26,9 +23,8 @@ class BusModal extends React.Component {
             <div className="container"  >
                 <div className="row bottomBorder">
                     <div className="col-md-4">
-                        <div>
-                            <p className="busType">{this.props.selectedStop.type.charAt(0).toUpperCase() + this.props.selectedStop.type.slice(1).toLowerCase()} Bus</p>
-
+                        <div className="busTypeContainer">
+                            <p className="busType">{this.props.selectedStop.type.toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ')} Bus</p>
                         </div>
                     </div>
                     <div className="col-md-4" >
@@ -57,7 +53,7 @@ class BusModal extends React.Component {
                     </div>
 
                     <div className="col-md-6">
-                    <p className="etaText">Porter/Kresge Inner Bus Stop</p>
+                        <p className="etaText">Porter/Kresge Inner Bus Stop</p>
                     </div>
                 </div>
 

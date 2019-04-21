@@ -21,7 +21,6 @@ const West_Remote = require('./assets/busStopPics/West_Remote.jpg')
 const Crown = require('./assets/busStopPics/Crown.jpg')
 const taps = require('./assets/busStopPics/TAPS.jpg')
 
-
 class stopModal extends React.Component {
 
     constructor(props) {
@@ -125,8 +124,6 @@ class stopModal extends React.Component {
                 </div>
 
             </div >
-
-
         )
     }
 }

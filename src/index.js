@@ -7,10 +7,6 @@ import "./components/styles.css";
 import MapView from "./components/mapView";
 
 const GMAPS = "https://maps.googleapis.com/maps/api/js?key="+process.env.REACT_APP_API_KEY
-console.log("AAG", GMAPS)
-
-
-
 
 const App = () => {
     return (

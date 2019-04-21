@@ -11,7 +11,7 @@ const Slug_Bus_180 = { url: require('./assets/mapIcons/Slug_Bus_180.png'), scale
 const Slug_Bus_45 = { url: require('./assets/mapIcons/Slug_Bus_45.png'), scaledSize: { width: 70, height: 70 } };
 const Slug_Bus_DR = { url: require('./assets/mapIcons/Slug_Bus_DR.png'), scaledSize: { width: 70, height: 80 } };
 const Slug_Bus_DL = { url: require('./assets/mapIcons/Slug_Bus_DL.png'), scaledSize: { width: 70, height: 80 } };
-const Slug_Bus_90 = { url: require('./assets/mapIcons/Slug_Bus_90.png'), scaledSize: { width: 140, height:  80 } };
+const Slug_Bus_90 = { url: require('./assets/mapIcons/Slug_Bus_90.png'), scaledSize: { width: 140, height: 80 } };
 const Slug_Bus_TR = { url: require('./assets/mapIcons/Slug_Bus_TR.png'), scaledSize: { width: 70, height: 80 } };
 const logo = require('./assets/mapIcons/Logo_2.png')
 
@@ -43,7 +43,7 @@ class MapWithMarker extends React.Component {
     }
 
     changeBusMarker = (angle) => {
- 
+
         if (angle <= 45) {
             return Slug_Bus_TR
         } if (angle <= 90) {
@@ -62,11 +62,10 @@ class MapWithMarker extends React.Component {
             return Slug_Bus_Vert
         }
 
-
     }
 
     async addMarker() {
-        
+
         let busArray = []
         axios.get("http://localhost:8080/location/get")
             .then(
@@ -78,11 +77,13 @@ class MapWithMarker extends React.Component {
             )
 
         await this.state.busArray.map(bus => {
-            return busArray.push(
-                { ...bus, angle: Math.floor(Math.random() * 360) + 1 }
-            )
+            if (bus.type !== 'Loop Out Of Service At Barn Theater Bus') {
+                return busArray.push(
+                    { ...bus, angle: Math.floor(Math.random() * 360) + 1 }
+                )
+            }
 
-        })
+       })
 
         this.setState({
             busArray: [...busArray]
@@ -214,6 +215,7 @@ class MapWithMarker extends React.Component {
                     isOpen={this.state.stopDetailsVisible}
                     shouldCloseOnOverlayClick={true}
                     onRequestClose={this.closeStopModal.bind(this)}
+                    ariaHideApp={false}
                     style={{
                         content: {
                             top: '50%',
@@ -232,6 +234,7 @@ class MapWithMarker extends React.Component {
                 <Modal
                     isOpen={this.state.busDetailsVisible}
                     shouldCloseOnOverlayClick={true}
+                    ariaHideApp={false}
                     onRequestClose={this.closeBusModal.bind(this)}
                     style={{
                         content: {

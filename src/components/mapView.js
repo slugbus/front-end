@@ -5,14 +5,7 @@ import StopModal from './stopModal'
 import BusModal from './busModal'
 import Legend from './legend'
 import { withGoogleMap, GoogleMap, Marker, withScriptjs } from "react-google-maps";
-const Slug_Bus = { url: require('./assets/mapIcons/Slug_Bus_Vert.png'), scaledSize: { width: 40, height: 60 } };
-const Slug_Bus_Vert = { url: require('./assets/mapIcons/Slug_Bus_Vert.png'), scaledSize: { width: 40, height: 80 } };
-const Slug_Bus_180 = { url: require('./assets/mapIcons/Slug_Bus_180.png'), scaledSize: { width: 40, height: 80 } };
-const Slug_Bus_45 = { url: require('./assets/mapIcons/Slug_Bus_45.png'), scaledSize: { width: 70, height: 70 } };
-const Slug_Bus_DR = { url: require('./assets/mapIcons/Slug_Bus_DR.png'), scaledSize: { width: 70, height: 80 } };
-const Slug_Bus_DL = { url: require('./assets/mapIcons/Slug_Bus_DL.png'), scaledSize: { width: 70, height: 80 } };
-const Slug_Bus_90 = { url: require('./assets/mapIcons/Slug_Bus_90.png'), scaledSize: { width: 140, height: 80 } };
-const Slug_Bus_TR = { url: require('./assets/mapIcons/Slug_Bus_TR.png'), scaledSize: { width: 70, height: 80 } };
+import { Slug_Bus_TR, Slug_Bus, Slug_Bus_DR, Slug_Bus_180, Slug_Bus_DL, Slug_Bus_90, Slug_Bus_45, Slug_Bus_Vert } from "./assets/Bus_Icons";
 const logo = require('./assets/mapIcons/Logo_2.png')
 
 
@@ -61,7 +54,6 @@ class MapView extends React.Component {
         } else {
             return Slug_Bus_Vert
         }
-
     }
 
     async addMarker() {
@@ -118,7 +110,6 @@ class MapView extends React.Component {
                 if (this.state.responseSize > 0) {
 
                     let deleteVal = this.state.markers.length - this.state.responseSize;
-
 
                     markers.splice(deleteVal, this.state.responseSize)
                     let returnVal = markers.concat(updatedBusMarkers)
@@ -177,7 +168,6 @@ class MapView extends React.Component {
 
         }
 
-
     }
 
     render() {
@@ -197,7 +187,6 @@ class MapView extends React.Component {
 
                 <GoogleMap defaultZoom={this.props.zoom} defaultCenter={this.props.center} defaultOptions={{ scrollwheel: false, gestureHandling: 'none' }}>
 
-
                     <div>
                         {this.state.markers.map((marker =>
                             <Marker
@@ -209,7 +198,6 @@ class MapView extends React.Component {
                         }
                     </div>
                 </GoogleMap>
-
 
                 <Modal
                     isOpen={this.state.stopDetailsVisible}
@@ -256,8 +244,6 @@ class MapView extends React.Component {
             </div>
 
         );
-
-
     }
 }
 export default withScriptjs(withGoogleMap(MapView));

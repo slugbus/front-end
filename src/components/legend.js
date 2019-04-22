@@ -12,7 +12,6 @@ class Legend extends React.Component {
         }
     }
 
-
     render() {
 
         return (

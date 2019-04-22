@@ -182,3 +182,12 @@ margin-right: auto
   position: absolute;
   border-radius: 7px;
 }
+
+@keyframes Bus_Icon_Spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

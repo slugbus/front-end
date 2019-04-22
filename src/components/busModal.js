@@ -4,21 +4,9 @@ const taps = require('./assets/busStopPics/TAPS.jpg')
 
 class BusModal extends React.Component {
 
-
-    constructor(props) {
-        super(props);
-        this.state = {
-
-        }
-
-
-    }
-
-    componentDidMount() {
-    }
+    constructor(props) {}
 
     render() {
-
         return (
             <div className="container"  >
                 <div className="row bottomBorder">

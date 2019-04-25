@@ -4,7 +4,7 @@ const taps = require('./assets/busStopPics/TAPS.jpg')
 
 class BusModal extends React.Component {
 
-    constructor(props) {}
+    
 
     render() {
         return (

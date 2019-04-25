@@ -51,7 +51,7 @@ class stopModal extends React.Component {
             <div className="container" >
 
                 <div className="row">
-                    <img style={{ width: '100%', height: "50vh" }} alt={this.props.selectedStop.name + " photo"} src={this.returnURL(this.props.selectedStop.name)}></img>
+                    <img  style={{ width: '100%', height: "50vh" }} alt={this.props.selectedStop.name + " photo"} src={this.returnURL(this.props.selectedStop.name)}></img>
                 </div>
 
                 <div className="row">
@@ -110,29 +110,4 @@ class stopModal extends React.Component {
 
 export default stopModal;
 
-
-function newFunction() {
-    const People = require('./assets/busStopPics/people.png');
-    const Barn = require('./assets/busStopPics/Barn.jpg');
-    const Arboretum = require('./assets/busStopPics/Arboretum.jpg');
-    const Bookstore = require('./assets/busStopPics/Bookstore.jpg');
-    const College_9 = require('./assets/busStopPics/College_9.jpg');
-    const East_Field_House = require('./assets/busStopPics/East_Field_House.jpg');
-    const Empire_Grade = require('./assets/busStopPics/Empire_Grade.jpg');
-    const Family_Housing = require('./assets/busStopPics/Family_Housing.jpg');
-    const Hagar = require('./assets/busStopPics/Hagar.jpg');
-    const East_Remote = require('./assets/busStopPics/East_Remote.jpg');
-    const High_Western = require('./assets/busStopPics/High_Western.png');
-    const Kerr = require('./assets/busStopPics/Kerr.jpg');
-    const Kresge = require('./assets/busStopPics/Kresge.jpg');
-    const Main_Entrance = require('./assets/busStopPics/Main_Entrance.jpg');
-    const Oakes = require('./assets/busStopPics/Oakes.jpg');
-    const Quarry = require('./assets/busStopPics/Quarry.jpg');
-    const Rachel_Carson = require('./assets/busStopPics/Rachel_Carson.jpg');
-    const Science_Hill = require('./assets/busStopPics/Science_Hill.jpg');
-    const West_Remote = require('./assets/busStopPics/West_Remote.jpg');
-    const Crown = require('./assets/busStopPics/Crown.jpg');
-    const taps = require('./assets/busStopPics/TAPS.jpg');
-    return { Science_Hill, Kerr, Kresge, College_9, East_Remote, Quarry, Hagar, High_Western, Barn, Arboretum, Oakes, Rachel_Carson, West_Remote, Crown, Bookstore, East_Field_House, Main_Entrance, Empire_Grade, Family_Housing, taps, People };
-}
 

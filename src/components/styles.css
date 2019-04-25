@@ -183,6 +183,18 @@ margin-right: auto
   border-radius: 7px;
 }
 
+.Spin-logo {
+  animation: Bus_Icon_Spin infinite .5s linear;
+
+}
+@keyframes Bus_Icon_90 {
+  from {
+    transform: rotate(0deg)
+  }
+  to {
+    transform: rotate(90deg);
+  }
+}
 @keyframes Bus_Icon_Spin {
   from {
     transform: rotate(0deg);

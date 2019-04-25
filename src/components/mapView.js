@@ -174,8 +174,8 @@ class MapView extends React.Component {
         return (
             <div className="container">
 
-                <div id="floating-panel">
-                    <img style={{ padding: 10, width: 140, height: 55 }} alt="bus++" src={logo}></img>
+                <div  q id="floating-panel">
+                    <img  style={{ padding: 10, width: 140, height: 55 }} alt="bus++" src={logo}></img>
 
                 </div>
                 {this.state.busDetailsVisible || this.state.stopDetailsVisible ?

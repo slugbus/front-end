@@ -185,7 +185,10 @@ class MapView extends React.Component {
                     </div>
                 }
 
-                <GoogleMap defaultZoom={this.props.zoom} defaultCenter={this.props.center} defaultOptions={{ scrollwheel: false, gestureHandling: 'none' }}>
+                <GoogleMap defaultZoom={this.props.zoom} 
+                defaultCenter={this.props.center} 
+                defaultOptions={{ scrollwheel: true, 
+                gestureHandling: 'cooperative' }}>
 
                     <div>
                         {this.state.markers.map((marker =>
@@ -239,8 +242,6 @@ class MapView extends React.Component {
                     <BusModal eta={this.state.eta} closeBusModal={this.closeBusModal.bind(this)} selectedStop={this.state.selectedBus} />
 
                 </Modal>
-
-
             </div>
 
         );

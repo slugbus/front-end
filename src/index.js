@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { allStops } from './busData/allStops'
+import {allStops} from './components/busData/allStops'
 
 import "./components/styles.css";
 

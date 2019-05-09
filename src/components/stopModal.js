@@ -1,13 +1,15 @@
 import React from 'react';
-import { Science_Hill, Kerr, Kresge, College_9, East_Remote, Quarry, Hagar, High_Western, Barn, Arboretum, Oakes, Rachel_Carson, West_Remote, Crown, Bookstore, East_Field_House, Main_Entrance, Empire_Grade, Family_Housing, taps, People } from './assets/Stop_Images'
+import {
+    Science_Hill, Kerr, Kresge, College_9, East_Remote, Quarry, Hagar, High_Western,
+    Barn, Arboretum, Oakes, Rachel_Carson, West_Remote, Crown, Bookstore, East_Field_House,
+    Main_Entrance, Empire_Grade, Family_Housing, taps, People
+} from './assets/Stop_Images'
 
 class stopModal extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-
-        }
+        this.state = {}
         this.returnURL = this.returnURL.bind(this)
     }
     returnURL(stopName) {
@@ -33,7 +35,6 @@ class stopModal extends React.Component {
             case "Coolidge & Main Entrance": return Main_Entrance;
             case "Empire Grade & Tosca Terrace": return Empire_Grade;
             case "Heller & Family Student Housing": return Family_Housing;
-
             default: return null
 
         }
@@ -44,14 +45,13 @@ class stopModal extends React.Component {
         this.props.closeModal()
     }
 
-
     render() {
 
         return (
             <div className="container" >
 
                 <div className="row">
-                    <img  style={{ width: '100%', height: "50vh" }} alt={this.props.selectedStop.name + " photo"} src={this.returnURL(this.props.selectedStop.name)}></img>
+                    <img style={{ width: '100%', height: "50vh" }} alt={this.props.selectedStop.name + " photo"} src={this.returnURL(this.props.selectedStop.name)}></img>
                 </div>
 
                 <div className="row">
@@ -68,7 +68,7 @@ class stopModal extends React.Component {
                 <hr></hr>
                 <div className="row" >
                     <div className="col-md-6 rightBorder">
-                        <p className="activityText" style={{fontWeight:'bold'}}>Activity of Bus Stop: </p>
+                        <p className="activityText" style={{ fontWeight: 'bold' }}>Activity of Bus Stop: </p>
                     </div>
 
                     <div className="col-md-6" >
@@ -91,7 +91,7 @@ class stopModal extends React.Component {
 
                     <div className="col-md-6 rightBorder" >
                         <div style={{ marginLeft: '2%' }}>
-                            <p className="activityText" style={{fontWeight:'bold'}}> Next Bus ETA:</p>
+                            <p className="activityText" style={{ fontWeight: 'bold' }}> Next Bus ETA:</p>
                         </div>
 
                     </div>

@@ -1,8 +1,8 @@
 
 
 //Importing done: Name, Lat, Long, stop ID, Background Image
-const BlueIcon = { url: require('../components/assets/mapIcons/Blue_Stop.png'), scaledSize: { width: 30, height: 37 } };
-const RedIcon = { url: require('../components/assets/mapIcons/Red_Stop.png'), scaledSize: { width: 30, height: 37 } };
+const BlueIcon = { url: require('../assets/mapIcons/Blue_Stop.png'), scaledSize: { width: 30, height: 37 } };
+const RedIcon = { url: require('../assets/mapIcons/Red_Stop.png'), scaledSize: { width: 30, height: 37 } };
 
 export const allStops = [
     //Inner STOPS

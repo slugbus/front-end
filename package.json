@@ -12,7 +12,6 @@
     "google-maps-react": "^2.0.2",
     "jquery": "^3.4.1",
     "lodash": "^4.17.11",
-    "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-google-maps": "^9.4.5",
     "react-image": "^2.0.0",
@@ -39,5 +38,14 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "@types/googlemaps": "^3.30.19",
+    "@types/markerclustererplus": "^2.1.33",
+    "@types/react": "^16.8.15",
+    "jquery": "^3.4.1",
+    "popper.js": "^1.14.6",
+    "react": "^16.8.3",
+    "react-native": "^0.59.5"
+  }
 }

@@ -174,8 +174,8 @@ class MapView extends React.Component {
         return (
             <div className="container">
 
-                <div q id="floating-panel">
-                    <img style={{ padding: 10, width: 140, height: 55 }} alt="bus++" src={logo}></img>
+                <div id="floating-panel">
+                    <img  style={{ padding: 10, width: 140, height: 55 }} alt="bus++" src={logo}></img>
 
                 </div>
                 {this.state.busDetailsVisible || this.state.stopDetailsVisible ?
@@ -185,16 +185,7 @@ class MapView extends React.Component {
                     </div>
                 }
 
-                <GoogleMap defaultZoom={this.props.zoom}
-                    defaultCenter={this.props.center}
-                    options={{
-                        minZoom: 4,
-                        maxZoom: 15.1
-                    }}
-                    defaultOptions={{
-                        scrollwheel: true,
-                        gestureHandling: 'cooperative'
-                    }}>
+                <GoogleMap defaultZoom={this.props.zoom} defaultCenter={this.props.center} defaultOptions={{ scrollwheel: true, gestureHandling: 'greedy' }}>
 
                     <div>
                         {this.state.markers.map((marker =>

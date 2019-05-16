@@ -188,8 +188,8 @@ class MapView extends React.Component {
                 <GoogleMap defaultZoom={this.props.zoom}
                     defaultCenter={this.props.center}
                     options={{
-                        minZoom: 15.1,
-                        maxZoom: 4
+                        minZoom: 4,
+                        maxZoom: 15.1
                     }}
                     defaultOptions={{
                         scrollwheel: true,

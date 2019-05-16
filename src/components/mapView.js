@@ -185,7 +185,7 @@ class MapView extends React.Component {
                     </div>
                 }
 
-                <GoogleMap defaultZoom={this.props.zoom} defaultCenter={this.props.center} defaultOptions={{ scrollwheel: false, gestureHandling: 'greedy' }}>
+                <GoogleMap defaultZoom={this.props.zoom} defaultCenter={this.props.center} defaultOptions={{ scrollwheel: true, gestureHandling: 'greedy' }}>
 
                     <div>
                         {this.state.markers.map((marker =>

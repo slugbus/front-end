@@ -174,7 +174,7 @@ class MapView extends React.Component {
         return (
             <div className="container">
 
-                <div  q id="floating-panel">
+                <div id="floating-panel">
                     <img  style={{ padding: 10, width: 140, height: 55 }} alt="bus++" src={logo}></img>
 
                 </div>
@@ -185,7 +185,7 @@ class MapView extends React.Component {
                     </div>
                 }
 
-                <GoogleMap defaultZoom={this.props.zoom} defaultCenter={this.props.center} defaultOptions={{ scrollwheel: false, gestureHandling: 'none' }}>
+                <GoogleMap defaultZoom={this.props.zoom} defaultCenter={this.props.center} defaultOptions={{ scrollwheel: true, gestureHandling: 'greedy' }}>
 
                     <div>
                         {this.state.markers.map((marker =>
